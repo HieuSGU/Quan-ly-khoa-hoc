@@ -10,15 +10,13 @@ import java.awt.Color;
  *
  * @author HP
  */
-public class OnsiteCourseMainForm extends javax.swing.JPanel {
+public class InstructorMainForm extends javax.swing.JPanel {
 
     /**
-     * Creates new form OnsiteCourseMainForm
+     * Creates new form InstructorMainForm
      */
-    Main main;
-    public OnsiteCourseMainForm(Main main) {
+    public InstructorMainForm() {
         initComponents();
-        this.main=main;
     }
 
     /**
@@ -33,7 +31,6 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton_dau = new javax.swing.JButton();
@@ -46,15 +43,11 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         jTextField4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField4.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField4.setText("Search by ID ");
+        jTextField4.setText("Search by ID");
         jTextField4.setPreferredSize(new java.awt.Dimension(82, 32));
         jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -65,15 +58,7 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Course", "Online Course", "Onsite Course", " " }));
-        jComboBox1.setSelectedIndex(2);
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(0, 204, 51));
+        jButton2.setBackground(new java.awt.Color(0, 204, 0));
         jButton2.setText("ADD");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -86,23 +71,20 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
+                .addGap(16, 16, 16)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -140,15 +122,17 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         jButton1.setText("Refresh");
         jPanel4.add(jButton1);
 
+        jScrollPane3.setAutoscrolls(true);
+
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Corse ID", "Title", "Location", "Days ", "Time"
+                "ID", "First Name", "Last Name", "Enrollment Date"
             }
         ));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -158,29 +142,24 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(110, 110, 110))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -195,17 +174,10 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        // TODO add your handling code here:
-        String selectedValue = jComboBox1.getSelectedItem().toString();
-        
-        main.ChangeContent(selectedValue);
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
-
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        OnsiteCourseAdd customPanel = new OnsiteCourseAdd();  
-        String dialogTitle = "Add New Onsite Course";  
+        InstructorAdd customPanel = new InstructorAdd();  
+        String dialogTitle = "Add New Instructor";  
 
         JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
         customDialog.showDialog();
@@ -216,7 +188,7 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         if (jTextField4.getText().equals("Search by ID")) {
                         jTextField4.setText("");
                         jTextField4.setForeground(Color.BLACK);
-                    }
+        }
     }//GEN-LAST:event_jTextField4FocusGained
 
     private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
@@ -225,6 +197,7 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
                         jTextField4.setText("Search by ID");
                         jTextField4.setForeground(Color.GRAY);
                     }
+        
     }//GEN-LAST:event_jTextField4FocusLost
 
 
@@ -235,7 +208,6 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
     private javax.swing.JButton jButton_dau;
     private javax.swing.JButton jButton_next;
     private javax.swing.JButton jButton_prev;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel_so_trang;
     private javax.swing.JLabel jLabel_trang;
     private javax.swing.JPanel jPanel1;
