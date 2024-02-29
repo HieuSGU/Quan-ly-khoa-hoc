@@ -52,6 +52,11 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         jButton3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton3.setText("EDIT");
         jButton3.setName("EditBtn"); // NOI18N
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(255, 0, 0));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -214,10 +219,17 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        CourseInstructorEdit customPanel = new CourseInstructorEdit();  // Thay bằng panel của bạn
+        String dialogTitle = "Edit Course Instructor";  // Thay bằng tiêu đề mong muốn
+
+        JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
+        customDialog.showDialog();
+    }//GEN-LAST:event_jButton3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

@@ -54,11 +54,21 @@ public class OnsiteCourseDetails extends javax.swing.JPanel {
         jButton3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton3.setText("EDIT");
         jButton3.setName("EditBtn"); // NOI18N
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(255, 0, 0));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton4.setText("DELETE");
         jButton4.setName("DeleteBtn"); // NOI18N
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton5.setText("EXIT");
@@ -255,10 +265,26 @@ public class OnsiteCourseDetails extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        OnsiteCourseEdit customPanel = new OnsiteCourseEdit();  // Thay bằng panel của bạn
+        String dialogTitle = "Edit Onsite Course";  // Thay bằng tiêu đề mong muốn
+
+        JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
+        customDialog.showDialog();
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+        OnsiteCourseDelete customPanel = new OnsiteCourseDelete();  // Thay bằng panel của bạn
+        String dialogTitle = "Delete Onsite Course";  // Thay bằng tiêu đề mong muốn
+
+        JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
+        customDialog.showDialog();
+    }//GEN-LAST:event_jButton4MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

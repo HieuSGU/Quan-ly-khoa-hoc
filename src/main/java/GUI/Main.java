@@ -66,6 +66,11 @@ public class Main extends javax.swing.JFrame {
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(0, 153, 255));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -212,6 +217,12 @@ public class Main extends javax.swing.JFrame {
         ChangeContent("Course Instructor");
     }//GEN-LAST:event_jButton6MouseClicked
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        System.out.println("Instructor");
+        ChangeContent("Instructor");
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line argumentsđđ
      */
@@ -253,7 +264,6 @@ public class Main extends javax.swing.JFrame {
         System.out.println(namepanel);
         
         contentPanel.removeAll();
-        contentPanel.setLayout(new BorderLayout());
         
         JPanel node = new OnlineCourseMainForm(this);
         switch(namepanel){
@@ -281,9 +291,14 @@ public class Main extends javax.swing.JFrame {
                 node = new CourseInstructorMainForm();
                 System.out.println("Course Instructor");
                 break;
+            case "Instructor":
+                node = new InstructorMainForm();
+                System.out.println("Instructor");
+                break;
             default:
                 break;
         }       
+        contentPanel.setLayout(new BorderLayout());
         contentPanel.add(node);
         contentPanel.revalidate();
         contentPanel.repaint();

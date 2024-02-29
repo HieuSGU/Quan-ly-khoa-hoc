@@ -53,11 +53,21 @@ public class OnlineCourseDetails extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton2.setText("DELETE");
         jButton2.setName("DeleteBtn"); // NOI18N
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 204, 0));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton1.setText("EDIT");
         jButton1.setName("EditBtn"); // NOI18N
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -212,6 +222,24 @@ public class OnlineCourseDetails extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        OnlineCourseEdit customPanel = new OnlineCourseEdit();  // Thay bằng panel của bạn
+        String dialogTitle = "Edit Online Course";  // Thay bằng tiêu đề mong muốn
+
+        JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
+        customDialog.showDialog();
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        OnlineCourseDelete customPanel = new OnlineCourseDelete();  // Thay bằng panel của bạn
+        String dialogTitle = "Delete Online Course";  // Thay bằng tiêu đề mong muốn
+
+        JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
+        customDialog.showDialog();
+    }//GEN-LAST:event_jButton2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
