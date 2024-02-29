@@ -15,6 +15,15 @@ import java.sql.SQLException;
  * @author HP
  */
 public class ConnectDB {
+    private static ConnectDB instance;
+
+    public static ConnectDB getInstance() {
+        if (instance == null) {
+          instance = new ConnectDB();
+        }
+        return instance;
+      }
+
     public static Connection connect() throws  SQLException{
         Connection con = null;
         try {
@@ -131,4 +140,33 @@ public class ConnectDB {
             return null;
         }
     }
+
+      public static PreparedStatement getPreparedStatement(
+          String sql,
+          Object... args) throws SQLException {
+        try {
+          PreparedStatement preparedStatement = getInstance()
+              .connect()
+              .prepareStatement(sql);
+          for (int i = 0; i < args.length; i++) {
+            preparedStatement.setObject(i + 1, args[i]);
+          }
+          return preparedStatement;
+        } catch (SQLException e) {
+          throw new SQLException("Error: " + e.getMessage() + " with sql: " + sql);
+        }
+      }
+    
+      public static ResultSet executeQuery(String sql, Object... args)
+          throws SQLException {
+        PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+        return preparedStatement.executeQuery();
+      }
+    
+      public static int executeUpdate(String sql, Object... args)
+          throws SQLException {
+        PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+        return preparedStatement.executeUpdate();
+      }
+    
 }
