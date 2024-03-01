@@ -21,7 +21,6 @@ public class Main extends javax.swing.JFrame {
     
     public Main() {
         initComponents();
-        setTitle("QUẢN LÝ KHÓA HỌC");
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.contentPanel=Content;
