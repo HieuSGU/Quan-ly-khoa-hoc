@@ -15,6 +15,7 @@ public interface DataManager<T> {
     /**
      *
      */
+
     // Phương thức để thêm một đối tượng
     void add(T object);
 

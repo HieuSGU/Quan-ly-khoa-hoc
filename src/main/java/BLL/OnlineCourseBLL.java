@@ -19,7 +19,6 @@ public class OnlineCourseBLL implements DataManager<DTO.OnlineCourseDTO> {
         onlinecourse = new OnlineCourseDTO();
         List = new ArrayList<>();
     }
-
     @Override
     public void add(OnlineCourseDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

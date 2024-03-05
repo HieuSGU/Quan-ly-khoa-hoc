@@ -20,7 +20,6 @@ public class StudentBLL implements DataManager<StudentDTO> {
         student = new StudentDTO();
         List = new ArrayList<>();
     }
-
     @Override
     public void add(StudentDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

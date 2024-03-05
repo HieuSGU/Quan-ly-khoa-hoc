@@ -4,8 +4,20 @@
  */
 package GUI;
 
+import BLL.StudentGradeBLL;
+import DAO.StudentGradeDAO;
+import DTO.StudentGradeDTO;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import GUI.StudentGradeDetails;
+import javax.swing.JFrame;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -16,10 +28,80 @@ public class StudentGradeMainForm extends javax.swing.JPanel {
     /**
      * Creates new form StudentGradeMainForm
      */
-
+    private StudentGradeBLL studentGradeBLL;
+    private StudentGradeDetails studentGradeDetails;
     public StudentGradeMainForm() {
+        studentGradeBLL = new StudentGradeBLL();
         initComponents();
+        
+        loadDataToTable();
+        addTableRowClickListener();
     }
+
+private void addTableRowClickListener() {
+    jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        @Override
+        public void valueChanged(ListSelectionEvent event) {
+            if (!event.getValueIsAdjusting()) {
+                int selectedRow = jTable2.getSelectedRow();
+                if (selectedRow >= 0) {
+                    Object enrollmentIdObj = jTable2.getValueAt(selectedRow, 0);
+                    if (enrollmentIdObj != null) {
+                        String enrollmentId = enrollmentIdObj.toString();
+                        // Kiểm tra xem enrollmentId có giá trị hợp lệ không
+                        if (!enrollmentId.isEmpty()) {
+                            StudentGradeDTO selectedStudentGrade = studentGradeBLL.getStudentGradeByCondition("EnrollmentID = " + enrollmentId);
+                            if (selectedStudentGrade != null) {
+                                if (studentGradeDetails == null) {
+                                    studentGradeDetails = new StudentGradeDetails();
+                                }
+                                studentGradeDetails.setStudentGrade(selectedStudentGrade);
+                                JFrame frame = new JFrame();
+                                frame.getContentPane().add(studentGradeDetails);
+                                frame.pack();
+                                frame.setVisible(true);
+                            } else {
+                                System.out.println("Không tìm thấy thông tin sinh viên với enrollmentId: " + enrollmentId);
+                            }
+                        } else {
+                            System.out.println("enrollmentId không hợp lệ");
+                        }
+                    } else {
+                        System.out.println("enrollmentId không tồn tại trong hàng được chọn");
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+
+
+
+
+
+    
+    private void loadDataToTable() {
+        ArrayList<StudentGradeDTO> studentGrades = studentGradeBLL.getAll();
+
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+
+        for (StudentGradeDTO studentGrade : studentGrades) {
+            Object[] rowData = {
+                studentGrade.getEnrollmentId(),
+                studentGrade.getCourse().getCourseId(),
+                studentGrade.getCourse().getTitle(),
+                studentGrade.getStudent().getPersonId(),
+                studentGrade.getStudent().getFirstName(),
+                studentGrade.getStudent().getLastName(),
+                studentGrade.getGrade()
+            };
+            model.addRow(rowData);
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,6 +222,11 @@ public class StudentGradeMainForm extends javax.swing.JPanel {
             }
         ));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -181,6 +268,7 @@ public class StudentGradeMainForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         StudentGradeAdd customPanel = new StudentGradeAdd();  // Thay bằng panel của bạn
@@ -206,6 +294,11 @@ public class StudentGradeMainForm extends javax.swing.JPanel {
                         jTextField4.setForeground(Color.GRAY);
                     }
     }//GEN-LAST:event_jTextField4FocusLost
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+
+        
+    }//GEN-LAST:event_jTable2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

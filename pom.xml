@@ -40,5 +40,5 @@
         <version>1.4</version>
 </dependency>
  </dependencies>
-    
+    <name>QuanLyKhoaHoc</name>
 </project>

@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import DTO.StudentGradeDTO;
+
 
 
 /**
@@ -15,8 +17,25 @@ public class StudentGradeDetails extends javax.swing.JPanel {
     /**
      * Creates new form StudentGradeDetails
      */
+       private StudentGradeDTO studentGrade;
+
     public StudentGradeDetails() {
         initComponents();
+    }
+
+    public void displayStudentGradeDetails(StudentGradeDTO studentGrade) {
+        // Hiển thị thông tin của sinh viên và hiển thị lên các label trong panel chi tiết
+        jLabel13.setText(String.valueOf(studentGrade.getEnrollmentId()));
+        jLabel18.setText(String.valueOf(studentGrade.getCourse().getCourseId()));
+        jLabel24.setText(studentGrade.getCourse().getTitle());
+        jLabel20.setText(String.valueOf(studentGrade.getStudent().getPersonId()));
+        jLabel26.setText(studentGrade.getStudent().getFirstName());
+        jLabel28.setText(studentGrade.getStudent().getLastName());
+        jLabel22.setText(String.valueOf(studentGrade.getGrade()));
+    }
+    public void setStudentGrade(StudentGradeDTO studentGrade) {
+        this.studentGrade = studentGrade;
+        displayStudentGradeDetails(studentGrade);
     }
 
     /**

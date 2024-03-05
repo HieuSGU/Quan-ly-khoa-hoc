@@ -18,7 +18,6 @@ public class InstructorBLL implements DataManager<InstructorDTO> {
         instuctor = new InstructorDTO();
         List = new ArrayList<>();
     }
-    
     @Override
     public void add(InstructorDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

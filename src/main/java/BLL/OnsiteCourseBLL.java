@@ -19,7 +19,6 @@ public class OnsiteCourseBLL implements DataManager<OnsiteCourseDTO>{
         onsitecourse = new OnsiteCourseDTO();
         List = new ArrayList<>();
     }
-
     @Override
     public void add(OnsiteCourseDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

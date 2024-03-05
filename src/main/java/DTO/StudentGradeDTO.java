@@ -14,7 +14,19 @@ public class StudentGradeDTO {
         this.student = student;
         this.grade = grade;
     }
+    public StudentGradeDTO(Object[] rowData) {
+        this.enrollmentId = (int) rowData[0];
+        int studentId = (int) rowData[1];
+        String studentFullName = (String) rowData[2];
+        this.student = new StudentDTO(studentId, studentFullName, "", null); // Điều chỉnh tùy theo constructor của lớp StudentDTO
 
+        this.course = new CourseDTO();
+        this.course.setCourseId((int) rowData[3]);
+        this.course.setTitle((String) rowData[4]);
+        this.course.setCredits((int) rowData[5]);
+
+        this.grade = (float) rowData[6];
+}
     public Object[] toObject() {
         return new Object[] {
             enrollmentId, student.getPersonId(), student.getFullName(),

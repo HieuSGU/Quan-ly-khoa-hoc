@@ -1,52 +1,58 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BLL;
 
-import DTO.*;
+import DAO.StudentGradeDAO;
+import DTO.StudentGradeDTO;
 import java.util.ArrayList;
-/**
- *
- * @author HP
- */
-public class StudentGradeBLL implements DataManager<StudentGradeDTO>{
 
-    private StudentGradeDTO student;
-    private ArrayList<StudentGradeDTO> List;
-    
+public class StudentGradeBLL implements DataManager<StudentGradeDTO> {
+
+    private StudentGradeDAO studentGradeDAO;
+
     public StudentGradeBLL() {
-        student = new StudentGradeDTO();
-        List = new ArrayList<>();
+        studentGradeDAO = new StudentGradeDAO();
     }
+
     @Override
     public void add(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        studentGradeDAO.insert(object);
     }
 
     @Override
     public void delete(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        studentGradeDAO.delete(object);
     }
 
     @Override
     public void edit(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        studentGradeDAO.update(object);
     }
 
     @Override
     public void addFromFile(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // Implement this method to read data from a file and add it to the database
+        // For example: studentGrades = FileReader.readFile(filePath);
     }
 
     @Override
     public StudentGradeDTO find(String objectId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return studentGradeDAO.getOne(objectId);
     }
 
     @Override
     public void show(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // Display information about the StudentGradeDTO object
+        // This can be printing to the console or displaying in a UI
+        // For example: System.out.println(object.toString());
     }
     
+    // Add a method to retrieve all student grades
+    public ArrayList<StudentGradeDTO> getAll() {
+        return studentGradeDAO.getAll();
+    }
+    public StudentGradeDTO getStudentGradeByCondition(String condition) {
+        // Call the getOne() method from the DAO and return the result
+        return studentGradeDAO.getOne(condition);
+    }
+    // Add a method to find student grades based on a specific condition
+
 }
