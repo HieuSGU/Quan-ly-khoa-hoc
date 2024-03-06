@@ -5,6 +5,8 @@
 package GUI;
 
 import DTO.StudentGradeDTO;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 
 
@@ -36,6 +38,9 @@ public class StudentGradeDetails extends javax.swing.JPanel {
     public void setStudentGrade(StudentGradeDTO studentGrade) {
         this.studentGrade = studentGrade;
         displayStudentGradeDetails(studentGrade);
+    }
+    public StudentGradeDTO getStudentGrade() {
+        return this.studentGrade;
     }
 
     /**
@@ -95,6 +100,11 @@ public class StudentGradeDetails extends javax.swing.JPanel {
         jButton3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton3.setText("EXIT");
         jButton3.setName("ExitBtn"); // NOI18N
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -269,13 +279,19 @@ public class StudentGradeDetails extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
-        StudentGradeDelete customPanel = new StudentGradeDelete();  // Thay bằng panel của bạn
-        String dialogTitle = "Delete Student Grade";  // Thay bằng tiêu đề mong muốn
+   // Tạo một instance của form StudentGradeDelete và chuyển đối tượng StudentGradeDTO cho nó
+    StudentGradeDelete deleteForm = new StudentGradeDelete(studentGrade);
+    String dialogTitle = "Delete Student Grade";  // Tiêu đề của dialog
 
-        JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
-        customDialog.showDialog();
+    // Hiển thị dialog
+    JDialogGUI customDialog = new JDialogGUI(this, deleteForm, dialogTitle);
+    customDialog.showDialog();
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            frame.dispose();
+    }//GEN-LAST:event_jButton3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

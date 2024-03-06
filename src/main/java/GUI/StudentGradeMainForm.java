@@ -206,6 +206,11 @@ private void addTableRowClickListener() {
 
         jButton1.setFont(new java.awt.Font("SansSerif", 2, 14)); // NOI18N
         jButton1.setText("Refresh");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jPanel4.add(jButton1);
 
         jScrollPane3.setAutoscrolls(true);
@@ -299,6 +304,28 @@ private void addTableRowClickListener() {
 
         
     }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+      // Gọi phương thức để lấy dữ liệu mới từ nguồn của bạn
+    ArrayList<StudentGradeDTO> newData = studentGradeBLL.getAll();
+    
+    // Cập nhật dữ liệu vào TableModel
+    DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+    model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
+    
+    // Thêm dữ liệu mới vào bảng
+    for (StudentGradeDTO studentGrade : newData) {
+        model.addRow(new Object[]{
+            studentGrade.getEnrollmentId(),
+            studentGrade.getCourse().getCourseId(),
+            studentGrade.getCourse().getTitle(),
+            studentGrade.getStudent().getPersonId(),
+            studentGrade.getStudent().getFirstName(),
+            studentGrade.getStudent().getLastName(),
+            studentGrade.getGrade()
+        });
+    }
+    }//GEN-LAST:event_jButton1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
