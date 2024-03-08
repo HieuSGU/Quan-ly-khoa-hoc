@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,7 +27,6 @@ public class ConnectDB {
             con = DriverManager.getConnection(url, user, password);
         }
         catch (SQLException e) {
-            System.out.print("khong the ket noi");
             throw e;
         }
         return con;
@@ -37,7 +38,6 @@ public class ConnectDB {
                 conn.close();
             }
         } catch (SQLException e) {
-            System.out.print("khong the ket noi");
             throw e;
         }
     }
@@ -131,4 +131,15 @@ public class ConnectDB {
             return null;
         }
     }
+
+    public static void main(String[] args) {
+        //Kiểm tra kết nối
+        ConnectDB c = new ConnectDB();
+        try {
+            System.out.println((c.connect() != null)?"Connected":"Fail");
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

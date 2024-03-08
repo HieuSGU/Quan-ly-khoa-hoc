@@ -4,7 +4,14 @@
  */
 package GUI;
 
+import DTO.CourseInstructorDTO;
+import BLL.*;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,8 +22,11 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
     /**
      * Creates new form CourseInstructorMainForm
      */
+    private CourseInstructorBLL courseinstructorBLL;
     public CourseInstructorMainForm() {
         initComponents();
+        this.courseinstructorBLL = new CourseInstructorBLL();
+        listStudent3();
     }
 
     /**
@@ -60,11 +70,6 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextField10FocusLost(evt);
-            }
-        });
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
             }
         });
 
@@ -151,6 +156,11 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
             }
         ));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -207,10 +217,6 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
         customDialog.showDialog();
     }//GEN-LAST:event_jButton2MouseClicked
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
-
     private void jTextField10FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField10FocusGained
         // TODO add your handling code here:
         if (jTextField10.getText().equals("Search by ID")) {
@@ -227,6 +233,32 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTextField10FocusLost
 
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        int rows = jTable2.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
+        
+        
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private DefaultTableModel converStudent(List list){
+        String [] columnNames = {"index", "CourseID", "PersonID"};
+        Object [][] data = new Object[list.size()][3];
+        for(int i = 0; i < list.size(); i++){
+            CourseInstructorDTO courseinstructor = (CourseInstructorDTO)list.get(i);
+            data[i][0] = i + 1;
+            data[i][1] = courseinstructor.getCourse().getCourseId();
+            data[i][2] = courseinstructor.getInstructor().getPersonId();
+        }
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        return model;
+    }
+    
+    private void listStudent3(){
+        List list = courseinstructorBLL.getAll();
+        DefaultTableModel model = converStudent(list);
+        jTable2.setModel(model);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
