@@ -21,10 +21,10 @@ public class ConnectDB {
 
     public static ConnectDB getInstance() {
         if (instance == null) {
-          instance = new ConnectDB();
+            instance = new ConnectDB();
         }
         return instance;
-      }
+    }
 
     public static Connection connect() throws  SQLException{
         Connection con = null;
@@ -40,7 +40,7 @@ public class ConnectDB {
         }
         return con;
     }
-    
+
     public static void closeConnection(Connection conn) throws  SQLException{
         try {
             if(conn != null){
@@ -50,7 +50,7 @@ public class ConnectDB {
             throw e;
         }
     }
-    
+
     public static void insertData(String tableName, String[] columns, String[] values) throws SQLException {
         Connection conn = null;
         try {
@@ -141,34 +141,35 @@ public class ConnectDB {
         }
     }
 
+    // Giữ lại cả hai đoạn mã
     public static PreparedStatement getPreparedStatement(
         String sql,
         Object... args) throws SQLException {
-      try {
-        PreparedStatement preparedStatement = getInstance()
-            .connect()
-            .prepareStatement(sql);
-        for (int i = 0; i < args.length; i++) {
-          preparedStatement.setObject(i + 1, args[i]);
+        try {
+            PreparedStatement preparedStatement = getInstance()
+                .connect()
+                .prepareStatement(sql);
+            for (int i = 0; i < args.length; i++) {
+                preparedStatement.setObject(i + 1, args[i]);
+            }
+            return preparedStatement;
+        } catch (SQLException e) {
+            throw new SQLException("Error: " + e.getMessage() + " with sql: " + sql);
         }
-        return preparedStatement;
-      } catch (SQLException e) {
-        throw new SQLException("Error: " + e.getMessage() + " with sql: " + sql);
-      }
     }
 
     public static ResultSet executeQuery(String sql, Object... args)
         throws SQLException {
-      PreparedStatement preparedStatement = getPreparedStatement(sql, args);
-      return preparedStatement.executeQuery();
+        PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+        return preparedStatement.executeQuery();
     }
 
     public static int executeUpdate(String sql, Object... args)
         throws SQLException {
-      PreparedStatement preparedStatement = getPreparedStatement(sql, args);
-      return preparedStatement.executeUpdate();
+        PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+        return preparedStatement.executeUpdate();
     }
-    
+
     public static void main(String[] args) {
         //Kiểm tra kết nối
         ConnectDB c = new ConnectDB();
