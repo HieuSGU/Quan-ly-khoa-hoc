@@ -5,6 +5,7 @@
 package BLL;
 import DTO.*;
 import java.util.ArrayList;
+import DAO.*;
 /**
  *
  * @author HP
@@ -13,10 +14,17 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO>{
 
     private CourseInstructorDTO courseinstructor;
     private ArrayList<CourseInstructorDTO> List;
+    private CourseIntructorDAO courseinstructorDAO;
     
     public CourseInstructorBLL() {
         courseinstructor = new CourseInstructorDTO();
         List = new ArrayList<>();
+        this.courseinstructorDAO = new CourseIntructorDAO();
+    }
+    
+    public ArrayList<CourseInstructorDTO> getAll(){
+        ArrayList<CourseInstructorDTO> list = courseinstructorDAO.getAll();
+        return list;
     }
     
     @Override
