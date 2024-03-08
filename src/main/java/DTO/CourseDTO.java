@@ -4,15 +4,15 @@ public class CourseDTO {
     private int courseId;
     private String title;
     private int credits;
-    private DepartmentDTO department;
+    private int departmentId;
 
     public CourseDTO() {}
 
-    public CourseDTO(int courseId, String title, int credits, DepartmentDTO department) {
+    public CourseDTO(int courseId, String title, int credits, int departmentId) {
         this.courseId = courseId;
         this.title = title;
         this.credits = credits;
-        this.department = department;
+        this.departmentId = departmentId;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class CourseDTO {
                 "courseId=" + courseId +
                 ", title='" + title + '\'' +
                 ", credits=" + credits +
-                ", department=" + department +
+                ", department=" + departmentId +
                 '}';
     }
 
@@ -49,11 +49,15 @@ public class CourseDTO {
         this.credits = credits;
     }
 
-    public DepartmentDTO getDepartment() {
-        return department;
+    public int getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment(DepartmentDTO department) {
-        this.department = department;
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getCourseType() {
+        return "Online"; // Mặc định là Online
     }
 }
