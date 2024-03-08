@@ -21,10 +21,10 @@ public class ConnectDB {
 
     public static ConnectDB getInstance() {
         if (instance == null) {
-          instance = new ConnectDB();
+            instance = new ConnectDB();
         }
         return instance;
-      }
+    }
 
     public static Connection connect() throws  SQLException{
         Connection con = null;
@@ -40,8 +40,8 @@ public class ConnectDB {
         }
         return con;
     }
+
     public static void closeConnection(Connection conn) throws  SQLException{
-        
         try {
             if(conn != null){
                 conn.close();
@@ -50,7 +50,7 @@ public class ConnectDB {
             throw e;
         }
     }
-    
+
     public static void insertData(String tableName, String[] columns, String[] values) throws SQLException {
         Connection conn = null;
         try {
@@ -169,7 +169,7 @@ public class ConnectDB {
         PreparedStatement preparedStatement = getPreparedStatement(sql, args);
         return preparedStatement.executeUpdate();
     }
-    
+
     public static void main(String[] args) {
         //Kiểm tra kết nối
         ConnectDB c = new ConnectDB();
