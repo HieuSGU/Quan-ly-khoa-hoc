@@ -215,6 +215,8 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
 
         JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
         customDialog.showDialog();
+        
+//        customDialog.
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jTextField10FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField10FocusGained
@@ -234,8 +236,28 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField10FocusLost
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        int rows = jTable2.getSelectedRow();
+        //show Details
+        int row = jTable2.getSelectedRow(); // lấy index của row
         DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
+        String courseID = model.getValueAt(row, 1).toString();
+        String personID = model.getValueAt(row, 2).toString();
+        
+        //lấy 1 courseinstructor
+        CourseInstructorDTO courseinstructor = courseinstructorBLL.getOneCourseInstructorRow(courseID);
+//        System.out.println(courseinstructor);
+        
+        CourseInstructorDetails customPanel = new CourseInstructorDetails();  
+        String dialogTitle = "Add New Online Course";  
+        
+        //display lên form details
+        customPanel.jLabel18.setText(courseinstructor.getCourse().getCourseId()+"");
+        customPanel.jLabel24.setText(courseinstructor.getCourse().getTitle());
+        customPanel.jLabel20.setText(courseinstructor.getInstructor().getPersonId()+"");
+        customPanel.jLabel26.setText(courseinstructor.getInstructor().getFirstName()+"");
+        customPanel.jLabel28.setText(courseinstructor.getInstructor().getLastName()+"");
+        JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
+        customDialog.showDialog();
+        
         
         
     }//GEN-LAST:event_jTable2MouseClicked

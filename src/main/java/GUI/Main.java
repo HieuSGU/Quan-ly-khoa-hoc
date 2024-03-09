@@ -212,7 +212,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
-        System.out.println("Course Instructor");
+//        System.out.println("Course Instructor");
         ChangeContent("Course Instructor");
     }//GEN-LAST:event_jButton6MouseClicked
 
@@ -259,7 +259,7 @@ public class Main extends javax.swing.JFrame {
         });
     }
     public void ChangeContent(String namepanel){
-        System.out.println("da vao");
+        System.out.println("vào");
         System.out.println(namepanel);
         
         contentPanel.removeAll();
@@ -288,7 +288,7 @@ public class Main extends javax.swing.JFrame {
                 break;
             case "Course Instructor":
                 node = new CourseInstructorMainForm();
-                System.out.println("Course Instructor");
+//                System.out.println("Course Instructor");
                 break;
             case "Instructor":
                 node = new InstructorMainForm();

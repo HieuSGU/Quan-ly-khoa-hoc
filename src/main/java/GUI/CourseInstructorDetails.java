@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import BLL.*;
 /**
  *
  * @author HP
@@ -13,8 +14,10 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
     /**
      * Creates new form CourseInstructorDetails
      */
+    private CourseInstructorBLL courseintructorBLL;
     public CourseInstructorDetails() {
         initComponents();
+        this.courseintructorBLL = new CourseInstructorBLL();
     }
 
     /**
@@ -74,7 +77,6 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         jLabel17.setText("Course ID:");
 
         jLabel18.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel18.setText("jLabel5");
         jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel19.setBackground(new java.awt.Color(255, 255, 255));
@@ -82,7 +84,6 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         jLabel19.setText("Instructor ID:");
 
         jLabel20.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel20.setText("jLabel5");
         jLabel20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel23.setBackground(new java.awt.Color(255, 255, 255));
@@ -90,7 +91,6 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         jLabel23.setText("Tiltle:");
 
         jLabel24.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel24.setText("jLabel5");
         jLabel24.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel25.setBackground(new java.awt.Color(255, 255, 255));
@@ -98,7 +98,6 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         jLabel25.setText("First Name:");
 
         jLabel26.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel26.setText("jLabel5");
         jLabel26.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel27.setBackground(new java.awt.Color(255, 255, 255));
@@ -106,7 +105,6 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         jLabel27.setText("Last Name:");
 
         jLabel28.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel28.setText("jLabel5");
         jLabel28.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -227,22 +225,22 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
         customDialog.showDialog();
     }//GEN-LAST:event_jButton3MouseClicked
-
-
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
+    public javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
+    public javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
+    public javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
+    public javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
+    public javax.swing.JLabel jLabel28;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private java.awt.Label label1;
