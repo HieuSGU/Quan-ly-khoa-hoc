@@ -4,6 +4,12 @@
  */
 package GUI;
 
+import javax.swing.SwingUtilities;
+import BLL.*;
+import DTO.CourseInstructorDTO;
+import com.google.protobuf.StringValue;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 /**
  *
  * @author HP
@@ -13,8 +19,14 @@ public class CourseInstructorAdd extends javax.swing.JPanel {
     /**
      * Creates new form CourseInstructorAdd
      */
+    private CourseInstructorBLL courseintructorBLL;
+    private CourseBLL courseBLL;
+    private InstructorBLL instructorBLL;
     public CourseInstructorAdd() {
         initComponents();
+        this.courseintructorBLL = new CourseInstructorBLL();
+        this.courseBLL = new CourseBLL();
+        this.instructorBLL = new InstructorBLL();
     }
 
     /**
@@ -63,6 +75,11 @@ public class CourseInstructorAdd extends javax.swing.JPanel {
         jButton2.setText("Add");
         jButton2.setToolTipText("");
         jButton2.setActionCommand("");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(156, 23, 23));
@@ -73,11 +90,6 @@ public class CourseInstructorAdd extends javax.swing.JPanel {
 
         jTextField6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField6.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(156, 23, 23));
@@ -152,13 +164,64 @@ public class CourseInstructorAdd extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    private boolean checkValidate(){
+        
+        
+        //kiểm tra xem chuổi nhập vào có phải là số hay không
+        try{
+            String courseId = jTextField6.getText();
+            String personId = jTextField5.getText();
+            Integer.parseInt(courseId);
+            Integer.parseInt(personId);
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please Enter a number");
+            return false;
+        }
+        
+        //Kiểm tra xem khóa học tồn tại hay không
+        if(!courseBLL.isExist(jTextField6.getText())){
+            JOptionPane.showMessageDialog(null, "this course isnt exist");
+            return false;
+        }
+        
+        //Kiểm tra xem người dạy có tồn tại hay không
+        if(!instructorBLL.isExist(jTextField5.getText())){
+            JOptionPane.showMessageDialog(null, "this person isnt exist");
+            return false;
+        }
+        
+        
+        //kiểm tra xem đã có người dạy khóa học này chưa
+        ArrayList<CourseInstructorDTO> courseinstructorlist = courseintructorBLL.getAll();
+        for(int i = 0; i < courseinstructorlist.size(); i++){
+            int id = courseinstructorlist.get(i).getCourse().getCourseId();
+            String idToString = String.valueOf(id);
+            if(idToString.equals(jTextField6.getText())) {
+                JOptionPane.showMessageDialog(null, "this couser has instructor");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+//        System.out.println("validate is pass: " + checkValidate());
+        if(checkValidate()){
+            int courseId = Integer.parseInt(jTextField6.getText());
+            int personId = Integer.parseInt(jTextField5.getText());
+            CourseInstructorDTO courseinstructor = new CourseInstructorDTO(courseId, personId);
+            System.out.println(courseinstructor);
+            courseintructorBLL.add(courseinstructor);
+            jTextField6.setText("");
+            jTextField5.setText("");
+            JOptionPane.showMessageDialog(null, "Add Success");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

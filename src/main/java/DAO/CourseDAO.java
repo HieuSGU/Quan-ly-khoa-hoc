@@ -3,14 +3,18 @@ package DAO;
 import DTO.CourseDTO;
 import DTO.DepartmentDTO;
 import ConnectDB.ConnectDB;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CourseDAO implements DataManagerDAO<CourseDTO> {
     private static CourseDAO instance;
-
+    private Connection c;
     public static CourseDAO getInstance() {
         if (instance == null) {
             instance = new CourseDAO();
@@ -19,6 +23,11 @@ public class CourseDAO implements DataManagerDAO<CourseDTO> {
     }
 
     public CourseDAO() {
+        try {
+            this.c = ConnectDB.connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private static CourseDTO createCourseFromResultSet(ResultSet rs) throws SQLException {
@@ -130,4 +139,19 @@ public class CourseDAO implements DataManagerDAO<CourseDTO> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getAll'");
     }
+    
+    public boolean isExist(String courseId){
+        boolean result = true;
+        try {
+            String query = "SELECT * FROM course WHERE CourseID = ?";
+            PreparedStatement p = c.prepareStatement(query);
+            p.setString(1, courseId);
+            ResultSet rs = p.executeQuery();
+            result = rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
 }

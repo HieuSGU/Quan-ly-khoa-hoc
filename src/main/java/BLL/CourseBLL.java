@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import DAO.CourseDAO;
-import DAO.OnsiteCourseDAO;
+import DAO.*;
 
 /**
  *
@@ -20,9 +19,11 @@ public class CourseBLL implements DataManager<CourseDTO> {
     private ArrayList<CourseDTO> List;
     private final List<CourseDTO> courseList = new ArrayList<>();
     private static CourseBLL instance;
-
-    private CourseBLL() {
+    private CourseDAO courseDAO;
+    
+    public CourseBLL() {
         this.courseList.addAll(CourseDAO.getInstance().readDB());
+        this.courseDAO = new CourseDAO();
     }
 
     public static CourseBLL getInstance() {
@@ -116,4 +117,8 @@ public class CourseBLL implements DataManager<CourseDTO> {
                                                                        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public boolean isExist(String courseId){
+        return courseDAO.isExist(courseId);
+    }
+    
 }

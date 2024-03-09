@@ -88,9 +88,9 @@ public class TestFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CourseInstructorDetails form = new CourseInstructorDetails();
-        form.setVisible(true);
+
     }//GEN-LAST:event_jButton1ActionPerformed
+    
     private DefaultTableModel converStudent(List list){
             String [] columnNames = {"index", "CourseID", "PersonID"};
             Object [][] data = new Object[list.size()][3];

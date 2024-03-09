@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package BLL;
+import DAO.*;
 import DTO.*;
 import java.util.ArrayList;
 /**
@@ -13,10 +14,11 @@ public class InstructorBLL implements DataManager<InstructorDTO> {
 
     private InstructorDTO instuctor;
     private ArrayList<InstructorDTO> List;
-    
+    private InstructorDAO instructorDAO;
     public InstructorBLL() {
         instuctor = new InstructorDTO();
         List = new ArrayList<>();
+        this.instructorDAO = new InstructorDAO();
     }
     
     @Override
@@ -47,6 +49,10 @@ public class InstructorBLL implements DataManager<InstructorDTO> {
     @Override
     public void show(InstructorDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public boolean isExist(String personId){
+        return instructorDAO.isExist(personId);
     }
     
 }
