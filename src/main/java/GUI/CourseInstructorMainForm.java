@@ -257,9 +257,6 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
         customPanel.jLabel28.setText(courseinstructor.getInstructor().getLastName()+"");
         JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
         customDialog.showDialog();
-        
-        
-        
     }//GEN-LAST:event_jTable2MouseClicked
 
     private DefaultTableModel converStudent(List list){

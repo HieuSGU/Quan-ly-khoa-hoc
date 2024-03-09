@@ -5,6 +5,8 @@
 package GUI;
 
 import BLL.*;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 /**
  *
  * @author HP
@@ -69,6 +71,11 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         jButton5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton5.setText("EXIT");
         jButton5.setName("ExitBtn"); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -225,6 +232,10 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
         customDialog.showDialog();
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        SwingUtilities.getWindowAncestor(this).dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

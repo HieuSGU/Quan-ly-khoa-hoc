@@ -67,7 +67,18 @@ public class CourseIntructorDAO implements DataManagerDAO<CourseInstructorDTO> {
 
     @Override
     public void insert(CourseInstructorDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String query = "INSERT INTO courseinstructor (CourseID, PersonID) VALUES (?, ?)";
+            PreparedStatement s = c.prepareStatement(query);
+            s.setString(1, object.getCourse().getCourseId()+"");
+            s.setString(2, object.getInstructor().getPersonId()+"");
+            
+            // Thực hiện truy vấn insert
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @Override
