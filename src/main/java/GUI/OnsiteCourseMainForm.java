@@ -6,8 +6,10 @@ package GUI;
 
 import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,6 +23,7 @@ import BLL.CourseBLL;
 import BLL.OnsiteCourseBLL;
 import DTO.CourseDTO;
 import DTO.OnsiteCourseDTO;
+import oracle.net.aso.c;
 
 /**
  *
@@ -47,6 +50,7 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -54,6 +58,7 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jTextField4 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
+        btnSearch = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
@@ -90,12 +95,30 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
             }
         });
 
+        btnSearch.setBackground(new java.awt.Color(0, 204, 51));
+        btnSearch.setText("Search");
+
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                String searchValue = jTextField4.getText() + "";
+                String[] columnNames = { "Course ID", "Title", "Location", "Days", "Time" };
+
+                List<OnsiteCourseDTO> searchResults = OnsiteCourseBLL.getInstance().searchModel(searchValue,
+                        columnNames);
+                showSearchResult(searchResults);
+
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(126, 126, 126)
+                                .addContainerGap()
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 102,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 359,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -110,18 +133,17 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
                                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(18, Short.MAX_VALUE)));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][] {
-                        { null, null, null, null, null },
-                        { null, null, null, null, null },
-                        { null, null, null, null, null },
-                        { null, null, null, null, null }
+
                 },
                 new String[] {
-                        "Corse ID", "Title", "Location", "Days ", "Time"
+                        "Course ID", "Title", "Location", "Days ", "Time"
                 }));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane3.setViewportView(jTable2);
@@ -157,9 +179,29 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
                 } else {
                     int modelIndex = jTable2.convertRowIndexToModel(index);
                     int id = (int) jTable2.getModel().getValueAt(modelIndex, 0);
-                    onSiteCourseBLL.getInstance().refresh();
-                    showUpdateInfo(id);
+                    OnsiteCourseEdit onsiteCourseEdit = new OnsiteCourseEdit();
+                    OnsiteCourseDTO onsiteCourseDTO = onSiteCourseBLL.getInstance().getModelById(id);
+                    CourseDTO courseDTO = courseBLL.getInstance().getModelById(id);
+                    if (courseDTO != null || onsiteCourseDTO != null) {
+                        onsiteCourseEdit.txtCourseID.setText(courseDTO.getCourseId() + "");
+                        onsiteCourseEdit.txtTitle.setText(courseDTO.getTitle());
+                        onsiteCourseEdit.txtCredits.setText(String.valueOf(courseDTO.getCredits()));
+                        onsiteCourseEdit.jComboBoxDepartmentID
+                        .setSelectedItem(String.valueOf(courseDTO.getDepartmentId()));
+                        onsiteCourseEdit.txtLocation.setText(onsiteCourseDTO.getLocation());
+                        onsiteCourseEdit.txtDay.setText(onsiteCourseDTO.getDays());
+                        onsiteCourseEdit.txtTime.setText(onsiteCourseDTO.getTime().toString());
+                    }
+                    else  {
+                        System.out.println("Error: OnsiteCourseDTO is null for courseId: " + id);
+                    }
+                    onsiteCourseEdit.setVisible(true);
                 }
+            }
+        });
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -190,12 +232,12 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnRefreshMouseClicked(evt);
+                updateOnsiteCourseFromList();
             }
         });
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
-                updateOnsiteCourseFromList();
             }
         });
 
@@ -239,7 +281,7 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
                                 .addContainerGap()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12,
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11,
                                         Short.MAX_VALUE)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 245,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,6 +310,14 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         updateOnsiteCourseFromList();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnSearchMouseClicked
+        // TODO add your handling code here:
+    }// GEN-LAST:event_btnSearchMouseClicked
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_btnSearchActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_jComboBox1ItemStateChanged
         // TODO add your handling code here:
@@ -333,6 +383,7 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
@@ -375,51 +426,18 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
         }
     }
 
-    public void showUpdateInfo(int courseId) {
-       
-                OnsiteCourseEdit onsiteCourseEdit = new OnsiteCourseEdit();
-                OnsiteCourseDTO onsiteCourseDTO = onSiteCourseBLL.getInstance().getModelById(courseId);
-                onSiteCourseBLL.refresh();
-                
-                onsiteCourseEdit.txtCourseID.setText(String.valueOf(onsiteCourseDTO.getCourseId()));
-                onsiteCourseEdit.txtTitle.setText(onsiteCourseDTO.getTitle());
-                onsiteCourseEdit.txtCredits.setText(String.valueOf(onsiteCourseDTO.getCredits()));
-                onsiteCourseEdit.jComboBoxDepartmentID.setSelectedItem(String.valueOf(onsiteCourseDTO.getDepartmentId()));
-                onsiteCourseEdit.txtLocation.setText(onsiteCourseDTO.getLocation());
-                onsiteCourseEdit.txtDay.setText(onsiteCourseDTO.getDays());
-                onsiteCourseEdit.txtTime.setText(onsiteCourseDTO.getTime().toString());
-    
-       
+    public void showSearchResult(List<OnsiteCourseDTO> search) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+
+        for (OnsiteCourseDTO onsite : search) {
+            model.addRow(new Object[] {
+                    onsite.getCourseId(),
+                    onsite.getTitle(),
+                    onsite.getLocation(),
+                    onsite.getDays(),
+                    onsite.getTime()
+            });
+        }
     }
-    
-
-
-
-    // public void handleRowSelection() {
-    //     OnsiteCourseEdit onsiteCourseEdit = new OnsiteCourseEdit();
-    //     int selectedRow = jTable2.getSelectedRow();
-    //     if (selectedRow != -1) {
-    //         Object courseID = jTable2.getValueAt(selectedRow, 0);
-    //         Object title = jTable2.getValueAt(selectedRow, 1);
-    //         Object credit = jTable2.getValueAt(selectedRow, 2);
-    //         Object departmentID = jTable2.getValueAt(selectedRow, 3);
-
-    //         onsiteCourseEdit.txtCourseID.setText(courseID.toString());
-    //         onsiteCourseEdit.txtTitle.setText(title.toString());
-    //         onsiteCourseEdit.txtCredits.setText(credit.toString());
-    //         onsiteCourseEdit.jComboBoxDepartmentID.setSelectedItem(departmentID.toString());
-
-    //         for (OnsiteCourseDTO onsiteDTO : onSiteCourseBLL.getInstance().getAllModels()) {
-    //             if (Integer.parseInt(courseID.toString()) == onsiteDTO.getCourseId()) {
-    //                 onsiteCourseEdit.txtLocation.setText(onsiteDTO.getLocation());
-    //                 onsiteCourseEdit.txtDay.setText(onsiteDTO.getDays());
-    //                 onsiteCourseEdit.txtTime.setText(onsiteDTO.getTime() + "");
-
-                    
-    //             }
-    //             onsiteCourseEdit.setVisible(true);
-    //         }
-    //     }
-    // }
-
 }
