@@ -4,7 +4,8 @@ public class CourseDTO {
     private int courseId;
     private String title;
     private int credits;
-    private int departmentId;
+    private DepartmentDTO department; // Giữ lại đoạn này
+    private int departmentId; // Giữ lại đoạn này
 
     public CourseDTO() {}
 
@@ -21,7 +22,8 @@ public class CourseDTO {
                 "courseId=" + courseId +
                 ", title='" + title + '\'' +
                 ", credits=" + credits +
-                ", department=" + departmentId +
+                ", department=" + department +
+                ", departmentId=" + departmentId +
                 '}';
     }
 
