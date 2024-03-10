@@ -4,7 +4,6 @@ import java.sql.Time;
 import java.time.LocalTime;
 
 public class OnsiteCourseDTO extends CourseDTO {
-    private CourseDTO course;
     private String location;
     private String days;
     private Time time;
@@ -48,8 +47,5 @@ public class OnsiteCourseDTO extends CourseDTO {
 
     public void setTime(Time time) {
         this.time = time;
-    }
-    public String getCourseType() {
-        return "Onsite";
     }
 }

@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="401da0f9-ae1b-4d4f-979d-3ad2962f2c32" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/BLL/CourseBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BLL/CourseBLL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BLL/OnsiteCourseBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BLL/OnsiteCourseBLL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ConnectDB/ConnectDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ConnectDB/ConnectDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/OnsiteCourseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/OnsiteCourseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/CourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/CourseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/OnlineCourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/OnlineCourseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/OnsiteCourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/OnsiteCourseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/CourseMainForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/CourseMainForm.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/CourseMainForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/CourseMainForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseAdd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseMainForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseMainForm.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseMainForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseMainForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,11 +13,30 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Chỉnh_GUI_đợt_1" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;qcuong57&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="bc5b06c5-ee2c-4f36-bf1f-5200418f8736" />
+        <option name="url" value="https://github.com/NewMXHieu/Quan-ly-khoa-hoc.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2d0k2qLYW7koZ6qpJweivBhhCBe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -37,10 +45,30 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Chỉnh__GUI__đợt__1",
-    "last_opened_file_path": "C:/Users/ADMIN/Quan-ly-khoa-hoc"
+    "git-widget-placeholder": "quoccuong",
+    "last_opened_file_path": "C:/Users/ADMIN/Documents/SGU/HK2-N3/MoHinhPhanLop"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Main" />
+      <module name="Project1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

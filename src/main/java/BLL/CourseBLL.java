@@ -43,9 +43,9 @@ public class CourseBLL implements DataManager<CourseDTO> {
 
     public CourseDTO getModelById(int id) {
         refresh();
-        for (CourseDTO CourseModel : courseList) {
-            if (CourseModel.getCourseId() == id) {
-                return CourseModel;
+        for (CourseDTO courseDTO : courseList) {
+            if (courseDTO.getCourseId() == id) {
+                return courseDTO;
             }
         }
         return null;
