@@ -4,19 +4,34 @@
  */
 package GUI;
 
+import DTO.OnlineCourseDTO;
+import GUI.OnlineCourseMainForm;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Arrays;
+import java.util.Locale;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author HP
  */
 public class OnlineCourseDetails extends javax.swing.JPanel {
-
     /**
      * Creates new form OnlineCourseDetails
      */
+
     public OnlineCourseDetails() {
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,18 +78,17 @@ public class OnlineCourseDetails extends javax.swing.JPanel {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel1.setText("Corse ID:");
+        jLabel1.setText("Course ID:");
+        jLabel1.setName(""); // NOI18N
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("URL:");
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel8.setText("jLabel5");
         jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel6.setText("jLabel5");
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
@@ -86,11 +100,9 @@ public class OnlineCourseDetails extends javax.swing.JPanel {
         jLabel11.setText("Credit:");
 
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel14.setText("jLabel5");
         jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel15.setText("jLabel5");
         jLabel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -98,7 +110,6 @@ public class OnlineCourseDetails extends javax.swing.JPanel {
         jLabel9.setText("Title:");
 
         jLabel16.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel16.setText("jLabel5");
         jLabel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel12.setBackground(new java.awt.Color(255, 255, 255));
@@ -106,7 +117,6 @@ public class OnlineCourseDetails extends javax.swing.JPanel {
         jLabel12.setText("Instructor ID:");
 
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel13.setText("jLabel5");
         jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -211,6 +221,20 @@ public class OnlineCourseDetails extends javax.swing.JPanel {
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addContainerGap())
         );
+        jButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Đóng GUI OnlineCourseDetails
+                closeWindow();
+            }
+        });
+    
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // Đóng GUI OnlineCourseDetails khi người dùng tắt form
+                closeWindow();
+            }
+        });
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -233,4 +257,17 @@ public class OnlineCourseDetails extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
+    public void setCourseDetail(Object[] row) {
+        // Lấy thông tin từ mảng row và gán vào các label tương ứng
+        jLabel6.setText(String.valueOf(row[0])); // Course ID
+        jLabel16.setText((String) row[1]);       // Title
+        jLabel8.setText((String) row[2]);        // URL
+        jLabel15.setText(String.valueOf( row[3]));       // Department
+        jLabel14.setText(String.valueOf( row[4]));       // Credits
+        jLabel13.setText(String.valueOf( row[5]));       // Instructor ID
+    }
+    private void closeWindow() {
+    Window window = SwingUtilities.getWindowAncestor(this);
+    window.dispose();
+    }
 }

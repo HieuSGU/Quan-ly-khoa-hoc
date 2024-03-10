@@ -4,7 +4,10 @@
  */
 package BLL;
 
+import DAO.OnlineCourseDAO;
 import DTO.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  *
@@ -12,12 +15,13 @@ import java.util.ArrayList;
  */
 public class OnlineCourseBLL implements DataManager<DTO.OnlineCourseDTO> {
 
+    private OnlineCourseDAO courseDAO;
     private OnlineCourseDTO onlinecourse;
     private ArrayList<OnlineCourseDTO> List;
     
     public OnlineCourseBLL() {
+        this.courseDAO = new OnlineCourseDAO();
         onlinecourse = new OnlineCourseDTO();
-        List = new ArrayList<>();
     }
 
     @Override
@@ -39,6 +43,17 @@ public class OnlineCourseBLL implements DataManager<DTO.OnlineCourseDTO> {
     public void addFromFile(String filePath) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    public ArrayList<OnlineCourseDTO> getCourseByID(int id) throws SQLException {
+        return courseDAO.getCourseByID(id);
+    }
+
+    public ResultSet getAllCoursesResultSet() {
+        return courseDAO.getAllCoursesResultSet();
+    }   
+    public Object[] getSingleCourseDetail(int courseID) {
+        return courseDAO.getSingleCourseDetail(courseID);
+    }
 
     @Override
     public OnlineCourseDTO find(String objectId) {
@@ -49,6 +64,4 @@ public class OnlineCourseBLL implements DataManager<DTO.OnlineCourseDTO> {
     public void show(OnlineCourseDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    
 }

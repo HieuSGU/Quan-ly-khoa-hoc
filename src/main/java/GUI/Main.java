@@ -6,6 +6,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 /**
@@ -251,7 +252,6 @@ public class Main extends javax.swing.JFrame {
     public void ChangeContent(String namepanel){
         System.out.println("da vao");
         System.out.println(namepanel);
-        
         contentPanel.removeAll();
         contentPanel.setLayout(new BorderLayout());
         

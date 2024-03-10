@@ -4,7 +4,7 @@ public class CourseDTO {
     private int courseId;
     private String title;
     private int credits;
-    private DepartmentDTO department;
+    public DepartmentDTO department;
 
     public CourseDTO() {}
 

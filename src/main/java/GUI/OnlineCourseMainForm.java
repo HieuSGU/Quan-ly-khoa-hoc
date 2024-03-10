@@ -4,6 +4,27 @@
  */
 package GUI;
 
+import BLL.OnlineCourseBLL;
+import ConnectDB.ConnectDB;
+import DAO.OnlineCourseDAO;
+import DTO.OnlineCourseDTO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import GUI.OnlineCourseDetails;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.Arrays;
+import javax.swing.JFrame;
+
 /**
  *
  * @author HP
@@ -13,11 +34,14 @@ public class OnlineCourseMainForm extends javax.swing.JPanel {
     /**
      * Creates new form OnlineCourseMainForm
      */
-    Main main;
+    private Main main;
+    private OnlineCourseBLL courseBLL;
     
     public OnlineCourseMainForm(Main main) {
         initComponents();
         this.main=main;
+        this.courseBLL = new OnlineCourseBLL();
+        populateTable();
     }
 
     /**
@@ -55,13 +79,30 @@ public class OnlineCourseMainForm extends javax.swing.JPanel {
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null}
             },
             new String [] {
-                "Corse ID", "Title", "URL"
+                "Course ID", "Title", "URL"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -192,6 +233,29 @@ public class OnlineCourseMainForm extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        jTextField4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Xử lý sự kiện tìm kiếm khi người dùng nhấn Enter
+                searchByID(jTextField4.getText());
+            }
+        });
+        jTextField4.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextField4.getText().equals("Search by Online ID")) {
+                    jTextField4.setText("");
+                    jTextField4.setForeground(new java.awt.Color(0, 0, 0));
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextField4.getText().isEmpty()) {
+                    jTextField4.setText("Search by Online ID");
+                    jTextField4.setForeground(new java.awt.Color(153, 153, 153));
+                }
+            }
+        });
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
@@ -200,6 +264,32 @@ public class OnlineCourseMainForm extends javax.swing.JPanel {
         
         main.ChangeContent(selectedValue);
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow != -1) {
+            int courseID = (int) jTable2.getValueAt(selectedRow, 0);
+
+            // Gọi BLL để lấy thông tin chi tiết của khóa học dựa trên courseID
+            Object[] courseDetail = courseBLL.getSingleCourseDetail(courseID);
+
+            if (courseDetail != null) {
+                // Tạo GUI OnlineCourseDetails
+                OnlineCourseDetails detailsGUI = new OnlineCourseDetails();
+
+                // Thiết lập thông tin chi tiết khóa học
+                detailsGUI.setCourseDetail(courseDetail);
+
+                // Hiển thị GUI OnlineCourseDetails
+                JFrame frame = new JFrame("Course Details");
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.getContentPane().add(detailsGUI);
+                frame.pack();
+                frame.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Course detail not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jTable2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -220,4 +310,36 @@ public class OnlineCourseMainForm extends javax.swing.JPanel {
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+    private void populateTable() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            model.setRowCount(0); // Xóa các hàng cũ trước khi thêm mới
+
+            ResultSet rs = courseBLL.getAllCoursesResultSet();
+
+            while (rs.next()) {
+                Object[] rowData = {rs.getInt("CourseID"), rs.getString("Title"), rs.getString("url")};
+                model.addRow(rowData);
+            }
+
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private void searchByID(String id) {
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            model.setRowCount(0); // Xóa các hàng cũ trước khi thêm mới
+
+            ArrayList<OnlineCourseDTO> courses = courseBLL.getCourseByID(Integer.parseInt(id));
+
+            for (OnlineCourseDTO course : courses) {
+                Object[] rowData = {course.getCourse().getCourseId(), course.getCourse().getTitle(), course.getUrl()};
+                model.addRow(rowData);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
