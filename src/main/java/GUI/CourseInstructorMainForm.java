@@ -4,6 +4,15 @@
  */
 package GUI;
 
+import DTO.CourseInstructorDTO;
+import BLL.*;
+import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author HP
@@ -13,8 +22,11 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
     /**
      * Creates new form CourseInstructorMainForm
      */
+    private CourseInstructorBLL courseinstructorBLL;
     public CourseInstructorMainForm() {
         initComponents();
+        this.courseinstructorBLL = new CourseInstructorBLL();
+        listStudent3();
     }
 
     /**
@@ -30,7 +42,7 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
         jPanel9 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton_dau = new javax.swing.JButton();
         jButton_prev = new javax.swing.JButton();
@@ -52,10 +64,22 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
         jTextField10.setForeground(new java.awt.Color(153, 153, 153));
         jTextField10.setText("Search by ID");
         jTextField10.setPreferredSize(new java.awt.Dimension(82, 32));
+        jTextField10.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField10FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField10FocusLost(evt);
+            }
+        });
 
-        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setPreferredSize(new java.awt.Dimension(32, 32));
+        jButton2.setBackground(new java.awt.Color(0, 204, 51));
+        jButton2.setText("ADD");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -63,8 +87,8 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -73,14 +97,13 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -133,6 +156,11 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
             }
         ));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -158,7 +186,7 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
+                .addGap(363, 363, 363)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,15 +208,85 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        CourseInstructorAdd customPanel = new CourseInstructorAdd();  
+        String dialogTitle = "Add New Course Instructor";  
+
+        JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
+        customDialog.showDialog();
+        
+//        customDialog.
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jTextField10FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField10FocusGained
+        // TODO add your handling code here:
+        if (jTextField10.getText().equals("Search by ID")) {
+                        jTextField10.setText("");
+                        jTextField10.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_jTextField10FocusGained
+
+    private void jTextField10FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField10FocusLost
+        // TODO add your handling code here:
+        if (jTextField10.getText().isEmpty()) {
+                        jTextField10.setText("Search by ID");
+                        jTextField10.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_jTextField10FocusLost
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        //show Details
+        int row = jTable2.getSelectedRow(); // lấy index của row
+        DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
+        String courseID = model.getValueAt(row, 1).toString();
+        String personID = model.getValueAt(row, 2).toString();
+        
+        //lấy 1 courseinstructor
+        CourseInstructorDTO courseinstructor = courseinstructorBLL.getOneCourseInstructorRow(courseID);
+//        System.out.println(courseinstructor);
+        
+        CourseInstructorDetails customPanel = new CourseInstructorDetails();  
+        String dialogTitle = "Add New Online Course";  
+        
+        //display lên form details
+        customPanel.jLabel18.setText(courseinstructor.getCourse().getCourseId()+"");
+        customPanel.jLabel24.setText(courseinstructor.getCourse().getTitle());
+        customPanel.jLabel20.setText(courseinstructor.getInstructor().getPersonId()+"");
+        customPanel.jLabel26.setText(courseinstructor.getInstructor().getFirstName()+"");
+        customPanel.jLabel28.setText(courseinstructor.getInstructor().getLastName()+"");
+        JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
+        customDialog.showDialog();
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private DefaultTableModel converStudent(List list){
+        String [] columnNames = {"index", "CourseID", "PersonID"};
+        Object [][] data = new Object[list.size()][3];
+        for(int i = 0; i < list.size(); i++){
+            CourseInstructorDTO courseinstructor = (CourseInstructorDTO)list.get(i);
+            data[i][0] = i + 1;
+            data[i][1] = courseinstructor.getCourse().getCourseId();
+            data[i][2] = courseinstructor.getInstructor().getPersonId();
+        }
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        return model;
+    }
+    
+    private void listStudent3(){
+        List list = courseinstructorBLL.getAll();
+        DefaultTableModel model = converStudent(list);
+        jTable2.setModel(model);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_cuoi;
     private javax.swing.JButton jButton_dau;
     private javax.swing.JButton jButton_next;
     private javax.swing.JButton jButton_prev;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel_so_trang;
     private javax.swing.JLabel jLabel_trang;
     private javax.swing.JPanel jPanel1;

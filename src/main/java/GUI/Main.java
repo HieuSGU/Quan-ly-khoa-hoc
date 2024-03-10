@@ -5,8 +5,10 @@
 package GUI;
 
 import java.awt.BorderLayout;
+
 import java.awt.CardLayout;
 import java.awt.Component;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 /**
@@ -22,7 +24,6 @@ public class Main extends javax.swing.JFrame {
     
     public Main() {
         initComponents();
-        setTitle("QUẢN LÝ KHÓA HỌC");
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.contentPanel=Content;
@@ -67,6 +68,11 @@ public class Main extends javax.swing.JFrame {
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(0, 153, 255));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -209,12 +215,18 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
-        System.out.println("Course Instructor");
+//        System.out.println("Course Instructor");
         ChangeContent("Course Instructor");
     }//GEN-LAST:event_jButton6MouseClicked
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        System.out.println("Instructor");
+        ChangeContent("Instructor");
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
-     * @param args the command line argumentsđđ
+     * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -250,10 +262,9 @@ public class Main extends javax.swing.JFrame {
         });
     }
     public void ChangeContent(String namepanel){
-        System.out.println("da vao");
+        System.out.println("vào");
         System.out.println(namepanel);
         contentPanel.removeAll();
-        contentPanel.setLayout(new BorderLayout());
         
         JPanel node = new OnlineCourseMainForm(this);
         switch(namepanel){
@@ -279,11 +290,16 @@ public class Main extends javax.swing.JFrame {
                 break;
             case "Course Instructor":
                 node = new CourseInstructorMainForm();
-                System.out.println("Course Instructor");
+//                System.out.println("Course Instructor");
+                break;
+            case "Instructor":
+                node = new InstructorMainForm();
+                System.out.println("Instructor");
                 break;
             default:
                 break;
         }       
+        contentPanel.setLayout(new BorderLayout());
         contentPanel.add(node);
         contentPanel.revalidate();
         contentPanel.repaint();

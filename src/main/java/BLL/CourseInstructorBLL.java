@@ -5,6 +5,7 @@
 package BLL;
 import DTO.*;
 import java.util.ArrayList;
+import DAO.*;
 /**
  *
  * @author HP
@@ -13,15 +14,22 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO>{
 
     private CourseInstructorDTO courseinstructor;
     private ArrayList<CourseInstructorDTO> List;
+    private CourseIntructorDAO courseinstructorDAO;
     
     public CourseInstructorBLL() {
         courseinstructor = new CourseInstructorDTO();
         List = new ArrayList<>();
+        this.courseinstructorDAO = new CourseIntructorDAO();
+    }
+    
+    public ArrayList<CourseInstructorDTO> getAll(){
+        ArrayList<CourseInstructorDTO> list = courseinstructorDAO.getAll();
+        return list;
     }
     
     @Override
     public void add(CourseInstructorDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        courseinstructorDAO.insert(object);
     }
 
     @Override
@@ -47,6 +55,15 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO>{
     @Override
     public void show(CourseInstructorDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public CourseInstructorDTO getOneCourseInstructorRow(String courseId){
+//        courseinstrructorDAO.getOne(courseID);
+        return courseinstructorDAO.getOne(courseId);
+    }
+    
+    public CourseInstructorDTO getOne(String courseId){
+        return courseinstructorDAO.getOne(courseId);
     }
     
 }

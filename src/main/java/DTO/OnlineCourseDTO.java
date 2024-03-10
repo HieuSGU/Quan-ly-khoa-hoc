@@ -28,8 +28,10 @@ public class OnlineCourseDTO {
     }
     public Object[] toObject() {
         return new Object[]{
-                course.getCourseId(), course.getTitle(), course.getCredits(), course.getDepartment().getName(), url
-                
+                course.getCourseId(), course.getTitle(), course.getCredits(), course.getDepartmentId(), url              
         };
+    }
+    public String getCourseType() {
+        return "Online";
     }
 }
