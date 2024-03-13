@@ -4,21 +4,29 @@
  */
 package GUI;
 
+import BLL.CourseInstructorBLL;
+import BLL.StudentGradeBLL;
+import DTO.CourseInstructorDTO;
+import DTO.StudentGradeDTO;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author HP
  */
 public class StudentGradeMainForm extends javax.swing.JPanel {
-
+private StudentGradeBLL studentGradeBLL;
     /**
      * Creates new form StudentGradeMainForm
      */
 
     public StudentGradeMainForm() {
         initComponents();
+        this.studentGradeBLL = new StudentGradeBLL();
+        listStudentGrade();
     }
 
     /**
@@ -207,6 +215,29 @@ public class StudentGradeMainForm extends javax.swing.JPanel {
                     }
     }//GEN-LAST:event_jTextField4FocusLost
 
+    private DefaultTableModel converStudentGrade(List list){
+        String [] columnNames = {"Enrollment ID", "Course ID", "Title","Student ID","First Name","Last Name","Grade"};
+        Object [][] data = new Object[list.size()][7];
+        for(int i = 0; i < list.size(); i++){
+            StudentGradeDTO studentGrade = (StudentGradeDTO)list.get(i);
+            data[i][0] = studentGrade.getEnrollmentId();
+            data[i][1] = studentGrade.getCourse().getCourseId();
+            data[i][2] = studentGrade.getCourse().getTitle();
+            data[i][3] = studentGrade.getStudent().getPersonId();
+            data[i][4] = studentGrade.getStudent().getFirstName();
+            data[i][5] = studentGrade.getStudent().getLastName();
+            data[i][6] = studentGrade.getGrade();
+        }
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        return model;
+    }
+    
+    private void listStudentGrade(){
+        List list = studentGradeBLL.getAll();
+        DefaultTableModel model = converStudentGrade(list);
+        jTable2.setModel(model);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
