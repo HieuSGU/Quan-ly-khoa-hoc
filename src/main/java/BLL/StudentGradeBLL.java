@@ -30,7 +30,7 @@ public class StudentGradeBLL implements DataManager<StudentGradeDTO>{
     
     @Override
     public void add(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        studentGradeDAO.insert(object);
     }
 
     @Override

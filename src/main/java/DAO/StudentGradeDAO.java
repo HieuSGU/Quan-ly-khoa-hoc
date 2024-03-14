@@ -6,6 +6,7 @@ package DAO;
 import ConnectDB.ConnectDB;
 import DTO.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -67,7 +68,8 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO>{
     public StudentGradeDTO read(Object primaryKey) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
+    
     @Override
     public void update(StudentGradeDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -75,8 +77,21 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO>{
 
     @Override
     public void insert(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String query = "INSERT INTO studentgrade (StudentID, CourseID, Grade) VALUES (?, ?, ?);";
+            PreparedStatement s = c.prepareStatement(query);
+            s.setString(1, object.getCourse().getCourseId()+"");
+            s.setString(2, object.getStudent().getPersonId()+"");
+            s.setString(3, object.getGrade()+"");
+            
+            // Thực hiện truy vấn insert
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
+
 
     @Override
     public void delete(StudentGradeDTO object) {

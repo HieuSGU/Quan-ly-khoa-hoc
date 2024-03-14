@@ -4,18 +4,28 @@
  */
 package GUI;
 
+import BLL.CourseInstructorBLL;
+import BLL.StudentGradeBLL;
+import DTO.CourseDTO;
+import DTO.CourseInstructorDTO;
+import DTO.StudentDTO;
+import DTO.StudentGradeDTO;
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author HP
  */
 public class StudentGradeAdd extends javax.swing.JPanel {
-
+    private StudentGradeBLL studentGradeBLL;
     /**
      * Creates new form StudentGradeAdd
      */
     public StudentGradeAdd() {
         initComponents();
+        
+        studentGradeBLL = new StudentGradeBLL();
     }
 
     /**
@@ -66,6 +76,11 @@ public class StudentGradeAdd extends javax.swing.JPanel {
         jButton2.setText("Add");
         jButton2.setToolTipText("");
         jButton2.setActionCommand("");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(156, 23, 23));
@@ -73,15 +88,12 @@ public class StudentGradeAdd extends javax.swing.JPanel {
 
         jTextField4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField4.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField4.setText("Please enter student id");
 
         jTextField5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField5.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField5.setText("Please enter the grade");
 
         jTextField6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField6.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField6.setText("Please enter the course id ");
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(156, 23, 23));
@@ -172,6 +184,27 @@ public class StudentGradeAdd extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int studentId = Integer.parseInt(jTextField4.getText());
+        int courseId = Integer.parseInt(jTextField6.getText());
+        float grade = Float.parseFloat(jTextField5.getText());
+        
+        CourseDTO courseDTO = new CourseDTO();
+        courseDTO.setCourseId(courseId);
+        
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setPersonId(studentId);
+        
+        StudentGradeDTO studentGradeDTO = new StudentGradeDTO(studentId, courseDTO,studentDTO,grade);
+
+        studentGradeBLL.add(studentGradeDTO);
+        jTextField4.setText("");
+        jTextField6.setText("");
+        jTextField5.setText("");
+        
+        JOptionPane.showMessageDialog(null, "Add Success");       
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
