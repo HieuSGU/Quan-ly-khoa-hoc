@@ -28,6 +28,10 @@ public class StudentGradeBLL implements DataManager<StudentGradeDTO>{
         return list;
     }
     
+    public StudentGradeDTO getOneStudentGradeRow(String enrollmentID){
+        return studentGradeDAO.getOne(enrollmentID);
+    }
+    
     @Override
     public void add(StudentGradeDTO object) {
         studentGradeDAO.insert(object);
@@ -40,7 +44,7 @@ public class StudentGradeBLL implements DataManager<StudentGradeDTO>{
 
     @Override
     public void edit(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         studentGradeDAO.update(object);
     }
 
     @Override

@@ -72,17 +72,27 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO>{
     
     @Override
     public void update(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+            String query = "Update studentgrade set Grade = ? where EnrollmentID = ?";
+            PreparedStatement s = c.prepareStatement(query);
+            s.setString(1, object.getGrade()+"");
+            s.setString(2, object.getEnrollmentId()+"");
+            
+            // Thực hiện truy vấn update
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void insert(StudentGradeDTO object) {
         try {
-            String query = "INSERT INTO studentgrade (StudentID, CourseID, Grade) VALUES (?, ?, ?);";
+            String query = "UPDATE studentgrade set Grade = ? where StudentID = ? and CourseID = ?";
             PreparedStatement s = c.prepareStatement(query);
-            s.setString(1, object.getCourse().getCourseId()+"");
-            s.setString(2, object.getStudent().getPersonId()+"");
-            s.setString(3, object.getGrade()+"");
+            s.setFloat(1, object.getGrade());
+            s.setInt(2, object.getStudent().getPersonId());
+            s.setInt(3, object.getCourse().getCourseId());
             
             // Thực hiện truy vấn insert
             s.executeUpdate();
@@ -92,6 +102,38 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO>{
         
     }
 
+    @Override
+    public StudentGradeDTO getOne(String condition) {
+        StudentGradeDTO studentGradeDTO = null;
+        try {
+            String query = "select EnrollmentID, studentgrade.CourseID, course.Title CourseTitle, StudentID, person.Firstname StudentFirstName, person.Lastname"
+                + " StudentLastName, Grade from studentgrade left join course on studentgrade.CourseID = course.CourseID left join person on person.PersonID = studentgrade.StudentID where EnrollmentID = ?";
+            PreparedStatement p = c.prepareStatement(query);
+            p.setString(1, condition);
+            ResultSet rs = p.executeQuery();
+            if(rs.next()){
+                int enrollmentID = rs.getInt("EnrollmentID");
+                    int courseID = rs.getInt("CourseID");
+                    int studentID = rs.getInt("StudentID");
+                    float grade = rs.getFloat("Grade");
+                    
+                    CourseDTO course = new CourseDTO();
+                    course.setCourseId(courseID);
+                    course.setTitle(rs.getString("CourseTitle"));
+                    
+                    StudentDTO student = new StudentDTO();
+                    student.setPersonId(studentID);
+                    student.setFirstName(rs.getString("StudentFirstName"));
+                    student.setLastName(rs.getString("StudentLastName"));
+                    
+                     studentGradeDTO = new StudentGradeDTO(enrollmentID, course,student,grade);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return  studentGradeDTO;
+    }
 
     @Override
     public void delete(StudentGradeDTO object) {
@@ -102,10 +144,4 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO>{
     public ArrayList<StudentGradeDTO> find(String condition) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public StudentGradeDTO getOne(String condition) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }

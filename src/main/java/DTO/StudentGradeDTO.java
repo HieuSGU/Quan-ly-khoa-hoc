@@ -14,6 +14,12 @@ public class StudentGradeDTO {
         this.student = student;
         this.grade = grade;
     }
+    
+     public StudentGradeDTO(CourseDTO course, StudentDTO student, float grade) {        
+        this.course = course;
+        this.student = student;
+        this.grade = grade;
+    }
 
     public Object[] toObject() {
         return new Object[] {

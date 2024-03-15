@@ -148,6 +148,11 @@ private StudentGradeBLL studentGradeBLL;
             }
         ));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -214,6 +219,33 @@ private StudentGradeBLL studentGradeBLL;
                         jTextField4.setForeground(Color.GRAY);
                     }
     }//GEN-LAST:event_jTextField4FocusLost
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+//show Details
+        int row = jTable2.getSelectedRow(); // lấy index của row
+        DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
+        String enrollmentID = model.getValueAt(row, 0).toString();
+        String studentID = model.getValueAt(row, 3).toString();
+        String courseID = model.getValueAt(row, 1).toString();
+        Float grade = Float.parseFloat(model.getValueAt(row, 6).toString());
+        
+        //lấy 1 courseinstructor
+        StudentGradeDTO studentGradeDTO = studentGradeBLL.getOneStudentGradeRow(enrollmentID);       
+        
+        StudentGradeDetails customPanel = new StudentGradeDetails();  
+        String dialogTitle = "Add New Student Grade";  
+        
+        //display lên form details
+        customPanel.jLabel13.setText(studentGradeDTO.getEnrollmentId()+"");
+        customPanel.jLabel18.setText(studentGradeDTO.getCourse().getCourseId()+"");
+        customPanel.jLabel24.setText(studentGradeDTO.getCourse().getTitle());
+        customPanel.jLabel20.setText(studentGradeDTO.getStudent().getPersonId()+"");
+        customPanel.jLabel26.setText(studentGradeDTO.getStudent().getFirstName()+"");
+        customPanel.jLabel28.setText(studentGradeDTO.getStudent().getLastName()+"");
+        customPanel.jTextField2.setText(studentGradeDTO.getGrade()+"");
+        JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
+        customDialog.showDialog();
+    }//GEN-LAST:event_jTable2MouseClicked
 
     private DefaultTableModel converStudentGrade(List list){
         String [] columnNames = {"Enrollment ID", "Course ID", "Title","Student ID","First Name","Last Name","Grade"};

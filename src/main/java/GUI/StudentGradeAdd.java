@@ -4,13 +4,23 @@
  */
 package GUI;
 
+import BLL.CourseBLL;
 import BLL.CourseInstructorBLL;
 import BLL.StudentGradeBLL;
 import DTO.CourseDTO;
 import DTO.CourseInstructorDTO;
 import DTO.StudentDTO;
 import DTO.StudentGradeDTO;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import BLL.StudentBLL;
+import javax.swing.SwingUtilities;
+import BLL.*;
+import DTO.CourseInstructorDTO;
+import com.google.protobuf.StringValue;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 
 
 /**
@@ -19,6 +29,8 @@ import javax.swing.JOptionPane;
  */
 public class StudentGradeAdd extends javax.swing.JPanel {
     private StudentGradeBLL studentGradeBLL;
+    private CourseBLL courseBLL;
+    private StudentBLL studentBLL;
     /**
      * Creates new form StudentGradeAdd
      */
@@ -26,7 +38,11 @@ public class StudentGradeAdd extends javax.swing.JPanel {
         initComponents();
         
         studentGradeBLL = new StudentGradeBLL();
+        courseBLL = new CourseBLL();
+        studentBLL = new StudentBLL();
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,31 +196,66 @@ public class StudentGradeAdd extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+    
+    private boolean checkValidate(){
+        //kiểm tra xem chuổi nhập vào có phải là số hay không
+        try{
+            String personId = jTextField4.getText();
+            String courseId = jTextField6.getText();
+            String grade = jTextField5.getText();
+
+            Integer.parseInt(courseId);
+            Integer.parseInt(personId);
+            Float.parseFloat(grade);
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please Enter a number");
+            return false;
+        }
+        
+        //Kiểm tra xem khóa học tồn tại hay không
+        if(!courseBLL.isExist(jTextField6.getText())){
+            JOptionPane.showMessageDialog(null, "this course isnt exist");
+            return false;
+        }
+        
+        //Kiểm tra xem học sinh có tồn tại hay không
+        if(!studentBLL.isExist(jTextField4.getText())){
+            JOptionPane.showMessageDialog(null, "this student isnt exist");
+            return false;
+        }
+        //kiểm tra xem cột điểm có lớn hơn 0 không
+        if(Float.parseFloat(jTextField5.getText()) < 0 || Float.parseFloat(jTextField5.getText()) > 10){
+            JOptionPane.showMessageDialog(null, "grade must in range [0-10]");
+            return false;
+        }
+        return true;
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         if(checkValidate()){
+            int courseId = Integer.parseInt(jTextField6.getText());
+            int studentId = Integer.parseInt(jTextField4.getText());
+            float grade = Float.parseFloat(jTextField5.getText());
+            
+            CourseDTO course = new CourseDTO();
+            course.setCourseId(courseId);
+            
+            StudentDTO student = new StudentDTO();
+            student.setPersonId(studentId);
+            
+            StudentGradeDTO studentgrade = new StudentGradeDTO(course, student, grade);
+            System.out.println(studentgrade);
+            studentGradeBLL.add(studentgrade);
+            jTextField6.setText("");
+            jTextField4.setText("");
+            jTextField5.setText("");
+            JOptionPane.showMessageDialog(null, "Add Success");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int studentId = Integer.parseInt(jTextField4.getText());
-        int courseId = Integer.parseInt(jTextField6.getText());
-        float grade = Float.parseFloat(jTextField5.getText());
-        
-        CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setCourseId(courseId);
-        
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setPersonId(studentId);
-        
-        StudentGradeDTO studentGradeDTO = new StudentGradeDTO(studentId, courseDTO,studentDTO,grade);
-
-        studentGradeBLL.add(studentGradeDTO);
-        jTextField4.setText("");
-        jTextField6.setText("");
-        jTextField5.setText("");
-        
-        JOptionPane.showMessageDialog(null, "Add Success");       
-    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
