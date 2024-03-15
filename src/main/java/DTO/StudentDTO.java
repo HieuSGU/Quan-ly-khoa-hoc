@@ -1,4 +1,4 @@
-package DTO;
+    package DTO;
 
 import java.time.LocalDate;
 
@@ -11,6 +11,7 @@ public class StudentDTO extends PersonDTO {
         super(personId, lastName, firstName);
         this.enrollmentDate = enrollmentDate;
     }
+
 
     public LocalDate getEnrollmentDate() {
         return enrollmentDate;
