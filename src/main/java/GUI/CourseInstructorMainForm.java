@@ -142,6 +142,11 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("SansSerif", 2, 14)); // NOI18N
         jButton1.setText("Refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton1);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -258,6 +263,10 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
         JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
         customDialog.showDialog();
     }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        listStudent3();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private DefaultTableModel converStudent(List list){
         String [] columnNames = {"index", "CourseID", "PersonID"};

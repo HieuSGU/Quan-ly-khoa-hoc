@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -70,8 +71,17 @@ public class CourseIntructorDAO implements DataManagerDAO<CourseInstructorDTO> {
 
     @Override
     public void update(CourseInstructorDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String query = "UPDATE courseinstructor SET PersonID = ? WHERE CourseID = ?";
+            PreparedStatement s = c.prepareStatement(query);
+            s.setInt(1, object.getInstructor().getPersonId());
+            s.setInt(2, object.getCourse().getCourseId());
+
+            // Thực hiện truy vấn UPDATE
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -227,6 +237,28 @@ public class CourseIntructorDAO implements DataManagerDAO<CourseInstructorDTO> {
         }
         return course;
 
+    }
+    
+    public ArrayList <CourseInstructorDTO>getListCourseInstructorByCourseId(CourseDTO CousreID){
+        String query = "SELECT * FROM CourseInstructor where CourseID = '"+CousreID.getCourseId()+"'" ;
+        ArrayList<CourseInstructorDTO> list = new ArrayList<>();
+        try {
+            Statement s = (this.c).createStatement();
+            ResultSet rs = s.executeQuery(query);
+            if(rs != null){
+                while(rs.next()){
+                    
+                    int courseid = rs.getInt("CourseID");
+                    int personid = rs.getInt("PersonID");
+                    CourseInstructorDTO courseinstructor = new CourseInstructorDTO(courseid, personid);
+                    list.add(courseinstructor);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return list;
     }
 
    

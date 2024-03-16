@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import com.google.protobuf.Timestamp;
 
 import ConnectDB.ConnectDB;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 /**
  *
  * @author HP
@@ -133,13 +135,56 @@ public class OnsiteCourseDAO implements DataManagerDAO<OnsiteCourseDTO>{
         }
     }
     
-    @Override
-    public ArrayList<OnsiteCourseDTO> find(String condition) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<OnsiteCourseDTO> getCourseByID(int id) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<OnsiteCourseDTO> courses = new ArrayList<>();
+
+        try {
+            conn = ConnectDB.connect();
+            String query = "SELECT * FROM onsitecourse " +
+                           "INNER JOIN course ON onsitecourse.CourseID = course.CourseID " +
+                           "WHERE onsitecourse.CourseID = ?";
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                CourseDTO courseInfo = new CourseDTO();
+                courseInfo.setTitle(rs.getString("Title"));
+                courseInfo.setCourseId(rs.getInt("CourseId"));
+
+                OnsiteCourseDTO course = new OnsiteCourseDTO();
+                course.setCourse(courseInfo);
+                course.setLocation(rs.getString("Location"));
+                course.setDays(rs.getString("Days"));
+                course.setTime(rs.getTime("Time"));
+
+                courses.add(course);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return courses;
     }
 
     @Override
     public OnsiteCourseDTO getOne(String condition) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<OnsiteCourseDTO> find(String condition) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

@@ -226,10 +226,10 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-
+        String CourseID = jLabel18.getText();
         CourseInstructorEdit customPanel = new CourseInstructorEdit();  // Thay bằng panel của bạn
         String dialogTitle = "Edit Course Instructor";  // Thay bằng tiêu đề mong muốn
-
+        customPanel.jTextField5.setText(CourseID);
 //        JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
 //        customDialog.showDialog();
 //        JDialog dialog = new JDialog(); 

@@ -123,6 +123,11 @@ public class OnsiteCourseBLL implements DataManager<OnsiteCourseDTO> {
                                                                        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public ArrayList<OnsiteCourseDTO> search(int condition) throws SQLException{
+    
+        return OnsiteCourseDAO.getInstance().getCourseByID(condition);
+    }
+    
     @Override
     public OnsiteCourseDTO find(String objectId) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from

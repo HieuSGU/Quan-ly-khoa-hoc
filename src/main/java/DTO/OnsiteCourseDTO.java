@@ -18,6 +18,14 @@ public class OnsiteCourseDTO extends CourseDTO {
 
     public OnsiteCourseDTO() {}
 
+    public CourseDTO getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseDTO course) {
+        this.course = course;
+    }
+
     // public Object[] toObject() {
     //     return new Object[]{
     //             course.getCourseId(), course.getTitle(), course.getCredits(),

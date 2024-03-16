@@ -45,8 +45,7 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO> {
 
     @Override
     public void edit(CourseInstructorDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        courseinstructorDAO.update(object);
     }
 
     @Override
@@ -77,5 +76,19 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO> {
         return courseinstructorDAO.getOne(courseId);
     }
     
-
+    public boolean check (CourseInstructorDTO object){
+        ArrayList<CourseInstructorDTO> coureInstructor = courseinstructorDAO.getListCourseInstructorByCourseId(object.getCourse());
+        ArrayList<CourseInstructorDTO> coureInstructorALl = courseinstructorDAO.getAll();
+        System.out.println(coureInstructor);
+        System.out.println(coureInstructorALl);
+        for (CourseInstructorDTO instructor : coureInstructor) {
+            System.out.println("BLL.CourseInstructorBLL.check()1");
+            if(instructor.getInstructor() == object.getInstructor()){
+                
+                return false;
+            }
+        }
+        
+        return true;
+    }
 }
