@@ -243,7 +243,7 @@ public class CourseInstructorMainForm extends javax.swing.JPanel {
         String personID = model.getValueAt(row, 2).toString();
         
         //lấy 1 courseinstructor
-        CourseInstructorDTO courseinstructor = courseinstructorBLL.getOneCourseInstructorRow(courseID);
+        CourseInstructorDTO courseinstructor = courseinstructorBLL.getOneRow(courseID, personID);
 //        System.out.println(courseinstructor);
         
         CourseInstructorDetails customPanel = new CourseInstructorDetails();  
