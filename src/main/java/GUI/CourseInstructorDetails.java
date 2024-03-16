@@ -77,6 +77,11 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         jButton5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton5.setText("EXIT");
         jButton5.setName("ExitBtn"); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -235,12 +240,26 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int courseId = Integer.parseInt(jLabel18.getText());
-        String tiltle = jLabel24.getText();
-        CourseDTO course = new CourseDTO();
-        InstructorDTO instructor = new InstructorDTO();
-        CourseInstructorDTO courseinstructor = new CourseInstructorDTO();
+        String courseId = jLabel18.getText();
+        String personId = jLabel20.getText();
+        
+
+        CourseInstructorDTO courseinstructor = courseintructorBLL.getOneRow(courseId, personId);
+        System.out.println(courseinstructor);
+        int choice = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        
+        if (choice == JOptionPane.YES_OPTION) {
+            System.out.println("Yes");
+            courseintructorBLL.delete(courseinstructor);
+            SwingUtilities.getWindowAncestor(this).dispose();
+        }else{
+            System.out.println("No");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        SwingUtilities.getWindowAncestor(this).dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

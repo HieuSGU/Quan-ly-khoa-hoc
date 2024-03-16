@@ -84,9 +84,11 @@ public class CourseIntructorDAO implements DataManagerDAO<CourseInstructorDTO> {
     @Override
     public void delete(CourseInstructorDTO object) {
         try {
-            String sqlSQuery = "DELETE FROM courseinstructor WHERE CourseID = ?";
+            String sqlSQuery = "DELETE FROM courseinstructor WHERE CourseID = ? AND personID = ?";
             PreparedStatement s = c.prepareStatement(sqlSQuery);
             s.setString(1, object.getCourse().getCourseId()+"");
+            s.setString(2, object.getInstructor().getPersonId()+"");
+            s.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

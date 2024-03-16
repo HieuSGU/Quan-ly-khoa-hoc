@@ -66,5 +66,9 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO>{
     public CourseInstructorDTO getOneRow(String courseId, String personId){
         return courseinstructorDAO.getOneRow(courseId, personId);
     }
+
+    public CourseInstructorDTO getOneRow(int courseId, int personId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
