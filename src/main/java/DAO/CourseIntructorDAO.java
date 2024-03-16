@@ -86,9 +86,9 @@ public class CourseIntructorDAO implements DataManagerDAO<CourseInstructorDTO> {
                 CourseDTO course = new CourseDTO(rs.getInt("CourseID"), rs.getString("Title"), 0,
                         null);
                 PersonDTO person = new PersonDTO(0, rs.getString("LastName"), rs.getString("FirstName"));
+                int personId = rs.getInt("PersonID");
+                InstructorDTO instructor = this.getInstructor(personId + "");
 
-                StudentGradeDTO studentGrade = new StudentGradeDTO(rs.getInt("EnrollmentID"), course, student,
-                        rs.getFloat("Grade"));
                 courseInstructor.add(courseInstructor);
             }
         } catch (SQLException e) {
