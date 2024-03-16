@@ -44,9 +44,10 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO> {
     @Override
 
     public StudentGradeDTO read(Object primaryKey) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
+        return null;
+    }
+        
+    @Override
     public ArrayList<StudentGradeDTO> getAll() {
         String query = "select EnrollmentID, studentgrade.CourseID, course.Title CourseTitle, StudentID, person.Firstname StudentFirstName, person.Lastname"
                 + " StudentLastName, Grade from studentgrade left join course on studentgrade.CourseID = course.CourseID left join person on person.PersonID = studentgrade.StudentID";
@@ -82,24 +83,13 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO> {
 
     }
     
-    @Override
 
-    public ArrayList<StudentGradeDTO> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
-    public StudentGradeDTO read(Object primaryKey) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
-    }
     
     
     @Override
     public void update(StudentGradeDTO object) {
 
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
+     
          try {
             String query = "Update studentgrade set Grade = ? where EnrollmentID = ?";
             PreparedStatement s = c.prepareStatement(query);
@@ -114,18 +104,7 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO> {
 
     }
 
-    @Override
-    public void insert(StudentGradeDTO object) {
 
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void delete(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public ArrayList<StudentGradeDTO> find(String condition) {
@@ -147,7 +126,7 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO> {
 
             while (rs.next()) {
                 CourseDTO course = new CourseDTO(rs.getInt("CourseID"), rs.getString("Title"), rs.getInt("Credits"),
-                        null);
+                        0);
                 StudentDTO student = new StudentDTO(rs.getInt("PersonID"), rs.getString("LastName"),
                         rs.getString("FirstName"), null);
                 if (rs.getDate("EnrollmentDate") != null) {
@@ -174,66 +153,9 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO> {
         return studentGrades;
     }
 
-    @Override
-    public StudentGradeDTO getOne(String condition) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        StudentGradeDTO studentGrade = null;
-
-        try {
-            conn = ConnectDB.connect();
-            String query = "SELECT sg.EnrollmentID, sg.Grade, c.CourseID, c.Title, c.Credits, s.PersonID, s.LastName, s.FirstName, s.EnrollmentDate "
-                    +
-                    "FROM StudentGrade sg " +
-                    "JOIN Course c ON sg.CourseID = c.CourseID " +
-                    "JOIN Person s ON sg.StudentID = s.PersonID " +
-                    "WHERE " + condition + " LIMIT 1";
-            pstmt = conn.prepareStatement(query);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                CourseDTO course = new CourseDTO(rs.getInt("CourseID"), rs.getString("Title"), rs.getInt("Credits"),
-                        null);
-                StudentDTO student = new StudentDTO(rs.getInt("PersonID"), rs.getString("LastName"),
-                        rs.getString("FirstName"), null);
-                if (rs.getDate("EnrollmentDate") != null) {
-                    student.setEnrollmentDate(rs.getDate("EnrollmentDate").toLocalDate());
-                }
-                studentGrade = new StudentGradeDTO(rs.getInt("EnrollmentID"), course, student, rs.getFloat("Grade"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (pstmt != null)
-                    pstmt.close();
-                if (conn != null)
-                    ConnectDB.closeConnection(conn);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return studentGrade;
-    }
+    
 
 
-        try {
-            String query = "UPDATE studentgrade set Grade = ? where StudentID = ? and CourseID = ?";
-            PreparedStatement s = c.prepareStatement(query);
-            s.setFloat(1, object.getGrade());
-            s.setInt(2, object.getStudent().getPersonId());
-            s.setInt(3, object.getCourse().getCourseId());
-            
-            // Thực hiện truy vấn insert
-            s.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
 
     @Override
     public StudentGradeDTO getOne(String condition) {
@@ -274,8 +196,10 @@ public class StudentGradeDAO implements DataManagerDAO<StudentGradeDTO> {
     }
 
     @Override
-    public ArrayList<StudentGradeDTO> find(String condition) {
+    public void insert(StudentGradeDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
 
 }

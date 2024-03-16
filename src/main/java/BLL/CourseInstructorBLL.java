@@ -31,10 +31,6 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO> {
 
     }
 
-    public ArrayList<CourseInstructorDTO> getAll() {
-        ArrayList<CourseInstructorDTO> list = courseinstructorDAO.getAll();
-        return list;
-    }
 
     @Override
     public void add(CourseInstructorDTO object) {
@@ -61,7 +57,8 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO> {
 
     @Override
     public CourseInstructorDTO find(String objectId) {
-        return CourseIntructorDAO.getOne(objectId);
+        CourseIntructorDAO courseInstructorDAO = new CourseIntructorDAO();
+        return courseInstructorDAO.getOne(objectId);
     }
 
     @Override
@@ -70,9 +67,7 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO> {
                                                                        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-
-=======
-    
+ 
     public CourseInstructorDTO getOneCourseInstructorRow(String courseId){
 //        courseinstrructorDAO.getOne(courseID);
         return courseinstructorDAO.getOne(courseId);

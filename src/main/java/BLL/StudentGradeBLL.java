@@ -16,27 +16,17 @@ import DTO.StudentGradeDTO;
  */
 public class StudentGradeBLL implements DataManager<StudentGradeDTO> {
 
+    private StudentGradeDTO student;
     private StudentGradeDAO studentGradeDAO;
+    private ArrayList<StudentGradeDTO> List;
 
 
     public StudentGradeBLL() {
         studentGradeDAO = new StudentGradeDAO();
-    }
-
-    @Override
-    public void add(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
-    private StudentGradeDTO student;
-    private StudentGradeDAO studentGradeDAO;
-    private ArrayList<StudentGradeDTO> List;
-    
-    public StudentGradeBLL() {
         student = new StudentGradeDTO();
         List = new ArrayList<>();
-        this.studentGradeDAO = new StudentGradeDAO();
     }
+
     
     public ArrayList<StudentGradeDTO> getAll(){
         ArrayList<StudentGradeDTO> list = studentGradeDAO.getAll();
@@ -60,10 +50,6 @@ public class StudentGradeBLL implements DataManager<StudentGradeDTO> {
 
     @Override
     public void edit(StudentGradeDTO object) {
-
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
          studentGradeDAO.update(object);
 
     }
