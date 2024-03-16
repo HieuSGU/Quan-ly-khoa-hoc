@@ -83,7 +83,14 @@ public class CourseIntructorDAO implements DataManagerDAO<CourseInstructorDTO> {
 
     @Override
     public void delete(CourseInstructorDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String sqlSQuery = "DELETE FROM courseinstructor WHERE CourseID = ?";
+            PreparedStatement s = c.prepareStatement(sqlSQuery);
+            s.setString(1, object.getCourse().getCourseId()+"");
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @Override
@@ -169,6 +176,32 @@ public class CourseIntructorDAO implements DataManagerDAO<CourseInstructorDTO> {
             Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return instructor;
+    }
+    
+    public CourseInstructorDTO getOneRow(String couserId, String personId) {
+        CourseInstructorDTO courseinstructor = null;
+        try {
+            String query = "SELECT * FROM CourseInstructor WHERE CourseID = ? AND personID = ?;";
+            PreparedStatement p = c.prepareStatement(query);
+            p.setString(1, couserId);
+            p.setString(2, personId);
+            ResultSet rs = p.executeQuery();
+            if(rs.next()){
+                int _courseId = rs.getInt("CourseID");
+                int _personId = rs.getInt("PersonID");
+                //tạo đối tượng course
+                CourseDTO course = this.getCourse(_courseId+"");
+                
+                //tạo đối tượng instructor
+                
+                InstructorDTO instructor = this.getInstructor(_personId+"");
+                courseinstructor = new CourseInstructorDTO(course, instructor);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseIntructorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return  courseinstructor;
     }
     
 }

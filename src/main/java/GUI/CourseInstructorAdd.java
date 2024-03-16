@@ -197,10 +197,12 @@ public class CourseInstructorAdd extends javax.swing.JPanel {
         //kiểm tra xem đã có người dạy khóa học này chưa
         ArrayList<CourseInstructorDTO> courseinstructorlist = courseintructorBLL.getAll();
         for(int i = 0; i < courseinstructorlist.size(); i++){
-            int id = courseinstructorlist.get(i).getCourse().getCourseId();
-            String idToString = String.valueOf(id);
-            if(idToString.equals(jTextField6.getText())) {
-                JOptionPane.showMessageDialog(null, "this couser has instructor");
+            int courseid = courseinstructorlist.get(i).getCourse().getCourseId();
+            String coursedidToString = String.valueOf(courseid);
+            int instructorid = courseinstructorlist.get(i).getInstructor().getPersonId();
+            String instructoridToString = String.valueOf(instructorid);
+            if(coursedidToString.equals(jTextField6.getText()) && instructoridToString.equals(jTextField5.getText())) {
+                JOptionPane.showMessageDialog(null, "this was existed");
                 return false;
             }
         }
@@ -208,7 +210,7 @@ public class CourseInstructorAdd extends javax.swing.JPanel {
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        System.out.println("validate is pass: " + checkValidate());
+//        System.out.println("validate is passed: " + checkValidate());
         if(checkValidate()){
             int courseId = Integer.parseInt(jTextField6.getText());
             int personId = Integer.parseInt(jTextField5.getText());

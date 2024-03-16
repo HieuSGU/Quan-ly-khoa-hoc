@@ -34,8 +34,9 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO>{
 
     @Override
     public void delete(CourseInstructorDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        courseinstructorDAO.delete(object);
     }
+    
 
     @Override
     public void edit(CourseInstructorDTO object) {
@@ -62,8 +63,8 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO>{
         return courseinstructorDAO.getOne(courseId);
     }
     
-    public CourseInstructorDTO getOne(String courseId){
-        return courseinstructorDAO.getOne(courseId);
+    public CourseInstructorDTO getOneRow(String courseId, String personId){
+        return courseinstructorDAO.getOneRow(courseId, personId);
     }
     
 }

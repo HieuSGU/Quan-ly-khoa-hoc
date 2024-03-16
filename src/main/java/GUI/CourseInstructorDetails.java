@@ -5,6 +5,7 @@
 package GUI;
 
 import BLL.*;
+import DTO.*;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 /**
@@ -67,15 +68,15 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         jButton4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton4.setText("DELETE");
         jButton4.setName("DeleteBtn"); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton5.setText("EXIT");
         jButton5.setName("ExitBtn"); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -233,9 +234,13 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
         customDialog.showDialog();
     }//GEN-LAST:event_jButton3MouseClicked
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        SwingUtilities.getWindowAncestor(this).dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int courseId = Integer.parseInt(jLabel18.getText());
+        String tiltle = jLabel24.getText();
+        CourseDTO course = new CourseDTO();
+        InstructorDTO instructor = new InstructorDTO();
+        CourseInstructorDTO courseinstructor = new CourseInstructorDTO();
+    }//GEN-LAST:event_jButton4ActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

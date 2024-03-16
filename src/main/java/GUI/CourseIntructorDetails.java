@@ -212,7 +212,7 @@ public class CourseIntructorDetails extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
+        System.out.println("Hello");
         CourseInstructorDelete customPanel = new CourseInstructorDelete();  // Thay bằng panel của bạn
         String dialogTitle = "Delete Course Instructor";  // Thay bằng tiêu đề mong muốn
 
