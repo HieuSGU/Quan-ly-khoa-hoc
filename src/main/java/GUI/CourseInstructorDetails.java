@@ -5,6 +5,7 @@
 package GUI;
 
 import BLL.*;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 /**
@@ -225,12 +226,22 @@ public class CourseInstructorDetails extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
+
         CourseInstructorEdit customPanel = new CourseInstructorEdit();  // Thay bằng panel của bạn
         String dialogTitle = "Edit Course Instructor";  // Thay bằng tiêu đề mong muốn
 
-        JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
-        customDialog.showDialog();
+//        JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
+//        customDialog.showDialog();
+//        JDialog dialog = new JDialog(); 
+//        dialog.add(customPanel);
+//        dialog.pack();
+//        System.out.print("da vao");
+//        dialog.setVisible(true);
+//        dialog.toFront();
+        JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
+        customDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Đảm bảo dialog bị ẩn khi đóng
+        customDialog.setVisible(true);
+        
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
