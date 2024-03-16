@@ -312,24 +312,7 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     
-    private void populateTable() {
-        try {
-            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            model.setRowCount(0); // Xóa các hàng cũ trước khi thêm mới
-
-            ResultSet rs = courseBLL.getAllCoursesResultSet();
-
-            while (rs.next()) {
-                Object[] rowData = {rs.getInt("CourseID"), rs.getString("Title"), rs.getString("url")};
-                model.addRow(rowData);
-            }
-
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    private void searchByID(int id) {
+        private void searchByID(int id) {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             model.setRowCount(0); // Xóa các hàng cũ trước khi thêm mới
