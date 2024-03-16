@@ -7,11 +7,26 @@ package BLL;
 import DAO.StudentGradeDAO;
 import DTO.*;
 import java.util.ArrayList;
+import DAO.StudentGradeDAO;
+import DTO.StudentGradeDTO;
+
 /**
  *
  * @author HP
  */
-public class StudentGradeBLL implements DataManager<StudentGradeDTO>{
+public class StudentGradeBLL implements DataManager<StudentGradeDTO> {
+
+    private StudentGradeDAO studentGradeDAO;
+
+
+    public StudentGradeBLL() {
+        studentGradeDAO = new StudentGradeDAO();
+    }
+
+    @Override
+    public void add(StudentGradeDTO object) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 
     private StudentGradeDTO student;
     private StudentGradeDAO studentGradeDAO;
@@ -39,27 +54,35 @@ public class StudentGradeBLL implements DataManager<StudentGradeDTO>{
 
     @Override
     public void delete(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void edit(StudentGradeDTO object) {
+
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
          studentGradeDAO.update(object);
+
     }
 
     @Override
     public void addFromFile(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public StudentGradeDTO find(String objectId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return studentGradeDAO.getOne(objectId);
     }
 
     @Override
     public void show(StudentGradeDTO object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
