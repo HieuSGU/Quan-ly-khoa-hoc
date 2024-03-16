@@ -5,7 +5,10 @@
 package GUI;
 
 import java.awt.BorderLayout;
+
 import java.awt.CardLayout;
+import java.awt.Component;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 /**
@@ -21,7 +24,6 @@ public class Main extends javax.swing.JFrame {
     
     public Main() {
         initComponents();
-        setTitle("QUẢN LÝ KHÓA HỌC");
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.contentPanel=Content;
@@ -213,7 +215,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
-        System.out.println("Course Instructor");
+//        System.out.println("Course Instructor");
         ChangeContent("Course Instructor");
     }//GEN-LAST:event_jButton6MouseClicked
 
@@ -224,7 +226,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
-     * @param args the command line argumentsđđ
+     * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -260,9 +262,8 @@ public class Main extends javax.swing.JFrame {
         });
     }
     public void ChangeContent(String namepanel){
-        System.out.println("da vao");
+        System.out.println("vào");
         System.out.println(namepanel);
-        
         contentPanel.removeAll();
         
         JPanel node = new OnlineCourseMainForm(this);
@@ -289,7 +290,7 @@ public class Main extends javax.swing.JFrame {
                 break;
             case "Course Instructor":
                 node = new CourseInstructorMainForm();
-                System.out.println("Course Instructor");
+//                System.out.println("Course Instructor");
                 break;
             case "Instructor":
                 node = new InstructorMainForm();

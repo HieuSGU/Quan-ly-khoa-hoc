@@ -9,12 +9,23 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author HP
  */
 public class ConnectDB {
+    private static ConnectDB instance;
+
+    public static ConnectDB getInstance() {
+        if (instance == null) {
+            instance = new ConnectDB();
+        }
+        return instance;
+    }
+
     public static Connection connect() throws  SQLException{
         Connection con = null;
         try {
@@ -25,23 +36,21 @@ public class ConnectDB {
             con = DriverManager.getConnection(url, user, password);
         }
         catch (SQLException e) {
-            System.out.print("khong the ket noi");
             throw e;
         }
         return con;
     }
+
     public static void closeConnection(Connection conn) throws  SQLException{
-        
         try {
             if(conn != null){
                 conn.close();
             }
         } catch (SQLException e) {
-            System.out.print("khong the ket noi");
             throw e;
         }
     }
-    
+
     public static void insertData(String tableName, String[] columns, String[] values) throws SQLException {
         Connection conn = null;
         try {
@@ -129,6 +138,45 @@ public class ConnectDB {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    // Giữ lại cả hai đoạn mã
+    public static PreparedStatement getPreparedStatement(
+        String sql,
+        Object... args) throws SQLException {
+        try {
+            PreparedStatement preparedStatement = getInstance()
+                .connect()
+                .prepareStatement(sql);
+            for (int i = 0; i < args.length; i++) {
+                preparedStatement.setObject(i + 1, args[i]);
+            }
+            return preparedStatement;
+        } catch (SQLException e) {
+            throw new SQLException("Error: " + e.getMessage() + " with sql: " + sql);
+        }
+    }
+
+    public static ResultSet executeQuery(String sql, Object... args)
+        throws SQLException {
+        PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+        return preparedStatement.executeQuery();
+    }
+
+    public static int executeUpdate(String sql, Object... args)
+        throws SQLException {
+        PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+        return preparedStatement.executeUpdate();
+    }
+
+    public static void main(String[] args) {
+        //Kiểm tra kết nối
+        ConnectDB c = new ConnectDB();
+        try {
+            System.out.println((c.connect() != null)?"Connected":"Fail");
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

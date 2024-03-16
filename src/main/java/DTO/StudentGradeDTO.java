@@ -5,11 +5,17 @@ public class StudentGradeDTO {
     private CourseDTO course;
     private StudentDTO student;
     private float grade;
-
+    private InstructorDTO instructor;
     public StudentGradeDTO() {}
 
     public StudentGradeDTO(int enrollmentId, CourseDTO course, StudentDTO student, float grade) {
         this.enrollmentId = enrollmentId;
+        this.course = course;
+        this.student = student;
+        this.grade = grade;
+    }
+    
+     public StudentGradeDTO(CourseDTO course, StudentDTO student, float grade) {        
         this.course = course;
         this.student = student;
         this.grade = grade;
@@ -20,6 +26,10 @@ public class StudentGradeDTO {
             enrollmentId, student.getPersonId(), student.getFullName(),
             course.getCourseId(), course.getTitle(), course.getCredits(), grade
         };
+    }
+    
+    public InstructorDTO getInstructor() {
+        return instructor;
     }
 
     @Override

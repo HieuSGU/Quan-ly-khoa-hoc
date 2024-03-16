@@ -5,7 +5,9 @@ import java.time.LocalDate;
 public class InstructorDTO extends PersonDTO {
     private LocalDate hireDate;
 
-    public InstructorDTO(){}
+    public InstructorDTO(){
+        super();
+    }
 
     public InstructorDTO(int personId, String lastName, String firstName, LocalDate hireDate) {
         super(personId, lastName, firstName);

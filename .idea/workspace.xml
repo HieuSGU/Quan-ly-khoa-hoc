@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="401da0f9-ae1b-4d4f-979d-3ad2962f2c32" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/BLL/CourseBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BLL/CourseBLL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BLL/OnsiteCourseBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BLL/OnsiteCourseBLL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ConnectDB/ConnectDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ConnectDB/ConnectDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/OnsiteCourseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/OnsiteCourseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/CourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/CourseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/OnlineCourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/OnlineCourseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/OnsiteCourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/OnsiteCourseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/CourseMainForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/CourseMainForm.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/CourseMainForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/CourseMainForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseAdd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseMainForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseMainForm.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseMainForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OnsiteCourseMainForm.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2d0k2qLYW7koZ6qpJweivBhhCBe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Chỉnh__GUI__đợt__1",
+    "last_opened_file_path": "C:/Users/ADMIN/Quan-ly-khoa-hoc"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="401da0f9-ae1b-4d4f-979d-3ad2962f2c32" name="Changes" comment="" />
+      <created>1709152183238</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709152183238</updated>
+    </task>
+    <servers />
+  </component>
+</project>

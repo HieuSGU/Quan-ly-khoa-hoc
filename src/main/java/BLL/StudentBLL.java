@@ -4,6 +4,7 @@
  */
 package BLL;
 
+import DAO.StudentDAO;
 import DTO.*;
 import java.util.ArrayList;
 
@@ -15,10 +16,12 @@ public class StudentBLL implements DataManager<StudentDTO> {
     
     private StudentDTO student;
     private ArrayList<StudentDTO> List;
-    
+    private StudentDAO studentDAO;
     public StudentBLL() {
         student = new StudentDTO();
         List = new ArrayList<>();
+        
+        studentDAO = new StudentDAO();
     }
 
     @Override
@@ -50,5 +53,7 @@ public class StudentBLL implements DataManager<StudentDTO> {
     public void show(StudentDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+     public boolean isExist(String personId){
+        return studentDAO.isExist(personId);
+    }
 }

@@ -4,21 +4,29 @@
  */
 package GUI;
 
+import BLL.CourseInstructorBLL;
+import BLL.StudentGradeBLL;
+import DTO.CourseInstructorDTO;
+import DTO.StudentGradeDTO;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author HP
  */
 public class StudentGradeMainForm extends javax.swing.JPanel {
-
+private StudentGradeBLL studentGradeBLL;
     /**
      * Creates new form StudentGradeMainForm
      */
 
     public StudentGradeMainForm() {
         initComponents();
+        this.studentGradeBLL = new StudentGradeBLL();
+        listStudentGrade();
     }
 
     /**
@@ -140,6 +148,11 @@ public class StudentGradeMainForm extends javax.swing.JPanel {
             }
         ));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -207,6 +220,56 @@ public class StudentGradeMainForm extends javax.swing.JPanel {
                     }
     }//GEN-LAST:event_jTextField4FocusLost
 
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+//show Details
+        int row = jTable2.getSelectedRow(); // lấy index của row
+        DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
+        String enrollmentID = model.getValueAt(row, 0).toString();
+        String studentID = model.getValueAt(row, 3).toString();
+        String courseID = model.getValueAt(row, 1).toString();
+        Float grade = Float.parseFloat(model.getValueAt(row, 6).toString());
+        
+        //lấy 1 courseinstructor
+        StudentGradeDTO studentGradeDTO = studentGradeBLL.getOneStudentGradeRow(enrollmentID);       
+        
+        StudentGradeDetails customPanel = new StudentGradeDetails();  
+        String dialogTitle = "Add New Student Grade";  
+        
+        //display lên form details
+        customPanel.jLabel13.setText(studentGradeDTO.getEnrollmentId()+"");
+        customPanel.jLabel18.setText(studentGradeDTO.getCourse().getCourseId()+"");
+        customPanel.jLabel24.setText(studentGradeDTO.getCourse().getTitle());
+        customPanel.jLabel20.setText(studentGradeDTO.getStudent().getPersonId()+"");
+        customPanel.jLabel26.setText(studentGradeDTO.getStudent().getFirstName()+"");
+        customPanel.jLabel28.setText(studentGradeDTO.getStudent().getLastName()+"");
+        customPanel.jTextField2.setText(studentGradeDTO.getGrade()+"");
+        JDialogGUI customDialog = new JDialogGUI(this, customPanel, dialogTitle);
+        customDialog.showDialog();
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private DefaultTableModel converStudentGrade(List list){
+        String [] columnNames = {"Enrollment ID", "Course ID", "Title","Student ID","First Name","Last Name","Grade"};
+        Object [][] data = new Object[list.size()][7];
+        for(int i = 0; i < list.size(); i++){
+            StudentGradeDTO studentGrade = (StudentGradeDTO)list.get(i);
+            data[i][0] = studentGrade.getEnrollmentId();
+            data[i][1] = studentGrade.getCourse().getCourseId();
+            data[i][2] = studentGrade.getCourse().getTitle();
+            data[i][3] = studentGrade.getStudent().getPersonId();
+            data[i][4] = studentGrade.getStudent().getFirstName();
+            data[i][5] = studentGrade.getStudent().getLastName();
+            data[i][6] = studentGrade.getGrade();
+        }
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        return model;
+    }
+    
+    private void listStudentGrade(){
+        List list = studentGradeBLL.getAll();
+        DefaultTableModel model = converStudentGrade(list);
+        jTable2.setModel(model);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

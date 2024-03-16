@@ -22,6 +22,13 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO> {
         courseinstructor = new CourseInstructorDTO();
         List = new ArrayList<>();
         this.courseinstructorDAO = new CourseIntructorDAO();
+
+    }
+    
+    public ArrayList<CourseInstructorDTO> getAll(){
+        ArrayList<CourseInstructorDTO> list = courseinstructorDAO.getAll();
+        return list;
+
     }
 
     public ArrayList<CourseInstructorDTO> getAll() {
@@ -62,5 +69,18 @@ public class CourseInstructorBLL implements DataManager<CourseInstructorDTO> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
                                                                        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
+=======
+    
+    public CourseInstructorDTO getOneCourseInstructorRow(String courseId){
+//        courseinstrructorDAO.getOne(courseID);
+        return courseinstructorDAO.getOne(courseId);
+    }
+    
+    public CourseInstructorDTO getOne(String courseId){
+        return courseinstructorDAO.getOne(courseId);
+    }
+    
 
 }

@@ -4,19 +4,45 @@
  */
 package GUI;
 
+import BLL.CourseBLL;
+import BLL.CourseInstructorBLL;
+import BLL.StudentGradeBLL;
+import DTO.CourseDTO;
+import DTO.CourseInstructorDTO;
+import DTO.StudentDTO;
+import DTO.StudentGradeDTO;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import BLL.StudentBLL;
+import javax.swing.SwingUtilities;
+import BLL.*;
+import DTO.CourseInstructorDTO;
+import com.google.protobuf.StringValue;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+
 
 /**
  *
  * @author HP
  */
 public class StudentGradeAdd extends javax.swing.JPanel {
-
+    private StudentGradeBLL studentGradeBLL;
+    private CourseBLL courseBLL;
+    private StudentBLL studentBLL;
     /**
      * Creates new form StudentGradeAdd
      */
     public StudentGradeAdd() {
         initComponents();
+        
+        studentGradeBLL = new StudentGradeBLL();
+        courseBLL = new CourseBLL();
+        studentBLL = new StudentBLL();
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,6 +92,11 @@ public class StudentGradeAdd extends javax.swing.JPanel {
         jButton2.setText("Add");
         jButton2.setToolTipText("");
         jButton2.setActionCommand("");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(156, 23, 23));
@@ -73,15 +104,12 @@ public class StudentGradeAdd extends javax.swing.JPanel {
 
         jTextField4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField4.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField4.setText("Please enter student id");
 
         jTextField5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField5.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField5.setText("Please enter the grade");
 
         jTextField6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField6.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField6.setText("Please enter the course id ");
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(156, 23, 23));
@@ -168,9 +196,65 @@ public class StudentGradeAdd extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+    
+    private boolean checkValidate(){
+        //kiểm tra xem chuổi nhập vào có phải là số hay không
+        try{
+            String personId = jTextField4.getText();
+            String courseId = jTextField6.getText();
+            String grade = jTextField5.getText();
+
+            Integer.parseInt(courseId);
+            Integer.parseInt(personId);
+            Float.parseFloat(grade);
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please Enter a number");
+            return false;
+        }
+        
+        //Kiểm tra xem khóa học tồn tại hay không
+        if(!courseBLL.isExist(jTextField6.getText())){
+            JOptionPane.showMessageDialog(null, "this course isnt exist");
+            return false;
+        }
+        
+        //Kiểm tra xem học sinh có tồn tại hay không
+        if(!studentBLL.isExist(jTextField4.getText())){
+            JOptionPane.showMessageDialog(null, "this student isnt exist");
+            return false;
+        }
+        //kiểm tra xem cột điểm có lớn hơn 0 không
+        if(Float.parseFloat(jTextField5.getText()) < 0 || Float.parseFloat(jTextField5.getText()) > 10){
+            JOptionPane.showMessageDialog(null, "grade must in range [0-10]");
+            return false;
+        }
+        return true;
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         if(checkValidate()){
+            int courseId = Integer.parseInt(jTextField6.getText());
+            int studentId = Integer.parseInt(jTextField4.getText());
+            float grade = Float.parseFloat(jTextField5.getText());
+            
+            CourseDTO course = new CourseDTO();
+            course.setCourseId(courseId);
+            
+            StudentDTO student = new StudentDTO();
+            student.setPersonId(studentId);
+            
+            StudentGradeDTO studentgrade = new StudentGradeDTO(course, student, grade);
+            System.out.println(studentgrade);
+            studentGradeBLL.add(studentgrade);
+            jTextField6.setText("");
+            jTextField4.setText("");
+            jTextField5.setText("");
+            JOptionPane.showMessageDialog(null, "Add Success");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
