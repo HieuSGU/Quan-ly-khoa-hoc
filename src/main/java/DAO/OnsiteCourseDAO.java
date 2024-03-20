@@ -72,7 +72,23 @@ public class OnsiteCourseDAO implements DataManagerDAO<OnsiteCourseDTO>{
 
     @Override
     public ArrayList<OnsiteCourseDTO> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<OnsiteCourseDTO> onsiteCourseList = new ArrayList<>();
+    	Connection con = null;
+        try {
+        		con = ConnectDB.connect();
+        		String qry = "SELECT * FROM course c, onsitecourse osc, department dpm "
+        				+ "WHERE osc.CourseID = c.CourseID AND c.DepartmentID = dpm.DepartmentID";
+                ResultSet rs = con.prepareStatement(qry).executeQuery();
+            while (rs.next()) {
+            	DepartmentDTO depart = new DepartmentDTO(rs.getInt("DepartmentID"), rs.getString("Name"), rs.getDouble("budget"), null, null);
+            	CourseDTO course = new CourseDTO(rs.getInt("CourseID"), rs.getString("Title"), rs.getInt("Credits"), depart);
+            	OnsiteCourseDTO onsite = new OnsiteCourseDTO(course, rs.getString("Location"), rs.getString("Days"), rs.getTime("Time").toLocalTime());
+                onsiteCourseList.add(onsite);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return onsiteCourseList;
     }
 
     @Override
@@ -180,9 +196,38 @@ public class OnsiteCourseDAO implements DataManagerDAO<OnsiteCourseDTO>{
 
     @Override
     public OnsiteCourseDTO getOne(String condition) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       Connection con = null;
+    	try {
+    		con = ConnectDB.connect();
+    		String qry = "SELECT * FROM course c, onsitecourse osc, department dpm "
+    				+ "WHERE osc.CourseID = c.CourseID AND c.DepartmentID = dpm.DepartmentID AND osc.CourseID = "+Integer.parseInt(condition) ;
+    		ResultSet rs = con.prepareStatement(qry).executeQuery();
+    		while(rs.next()) {
+    			DepartmentDTO depart = new DepartmentDTO(rs.getInt("DepartmentID"), rs.getString("Name"), rs.getDouble("Budget"), null, null);
+    			CourseDTO course = new CourseDTO(rs.getInt("CourseID"), rs.getString("Title"), rs.getInt("Credits"),depart);
+    			OnsiteCourseDTO onsitecourse = new OnsiteCourseDTO(course, rs.getString("Location"), rs.getString("Days"), rs.getTime("Time").toLocalTime());
+    			return onsitecourse;
+    		}
+    	}
+    	catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
+    public int getInstructorID(String courseID){
+    	Connection con = null;
+    	try {
+    		con = ConnectDB.connect();
+    		String qry = "SELECT PersonID FROM courseinstructor WHERE CourseID = "+Integer.parseInt(courseID);
+    		ResultSet rs = con.prepareStatement(qry).executeQuery();
+    		if(rs.next()) {
+    			return rs.getInt("PersonID");
+    		}
+    	}
+    	catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return -1;
+    }
     @Override
     public ArrayList<OnsiteCourseDTO> find(String condition) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
