@@ -130,10 +130,21 @@ public class OnsiteCourseBLL implements DataManager<OnsiteCourseDTO> {
     
     @Override
     public OnsiteCourseDTO find(String objectId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+			return OnsiteCourseDAO.getOne(objectId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
     }
-
+    public int getInstructorID(String objectId) {
+    	try {
+			return OnsiteCourseDAO.getInstructorID(objectId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+    }
     @Override
     public void show(OnsiteCourseDTO object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
