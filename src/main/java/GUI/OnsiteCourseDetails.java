@@ -15,8 +15,9 @@ public class OnsiteCourseDetails extends javax.swing.JPanel {
     /**
      * Creates new form OnsiteCourseDetails
      */
-    public OnsiteCourseDetails() {
+    public OnsiteCourseDetails(String title, int courseID, String days, LocalTime time, String location, int department, int credits, int instructorID ) {
         initComponents();
+        loadDetails(title, courseID, days, time, location, department, credits, instructorID);
     }
 
     /**
@@ -282,7 +283,16 @@ public class OnsiteCourseDetails extends javax.swing.JPanel {
         JDialogGUI customDialog = new JDialogGUI(this,customPanel,dialogTitle);
         customDialog.showDialog();
     }//GEN-LAST:event_jButton4MouseClicked
-
+    private void loadDetails(String title, int courseID, String days, LocalTime time, String location, int department, int credits, int instructorID) {
+    	jLabel13.setText(Integer.toString(instructorID));
+    	jLabel16.setText(title);
+    	jLabel15.setText(Integer.toString(department));
+    	jLabel14.setText(Integer.toString(credits));
+    	jLabel6.setText(Integer.toString(courseID));
+    	jLabel5.setText(location);
+    	jLabel7.setText(days);
+    	jLabel8.setText(time.toString());
+	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
