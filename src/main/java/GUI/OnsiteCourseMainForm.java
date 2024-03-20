@@ -43,6 +43,8 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
     public OnsiteCourseMainForm(Main main) {
         initComponents();
         onSiteCourseBLL = OnsiteCourseBLL.getInstance();
+        OnsiteCourseBLL = new OnsiteCourseBLL();
+        showOnsiteCourse();
         this.main = main;
         jTextField4.addActionListener(new ActionListener() {
             @Override
@@ -135,6 +137,14 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
                 "Corse ID", "Title", "Location", "Days ", "Time"
             }
         ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	int row = jTable2.getSelectedRow();
+            	String Id = jTable2.getModel().getValueAt(row, 0).toString();
+            	showDetails(evt, Id);
+            }
+        });;
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane3.setViewportView(jTable2);
 
@@ -377,7 +387,36 @@ public class OnsiteCourseMainForm extends javax.swing.JPanel {
     
        
     }
-    
+    private void showOnsiteCourse() {
+    	ArrayList<OnsiteCourseDTO> onsiteCourse = OnsiteCourseBLL.readList();
+    	DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        for (OnsiteCourseDTO OnsiteCourse : onsiteCourse) {
+            Object[] row = {
+                OnsiteCourse.getCourse().getCourseId(),
+                OnsiteCourse.getCourse().getTitle(),
+                OnsiteCourse.getLocation(),
+                OnsiteCourse.getDays(),
+                OnsiteCourse.getTime(),
+            };
+            model.addRow(row);
+        }
+    }    
+    private void showDetails(java.awt.event.MouseEvent evt, String CourseId) {
+    	OnsiteCourseDTO onsiteCourse = OnsiteCourseBLL.find(CourseId);
+    	String Title = onsiteCourse.getCourse().getTitle();
+    	int CourseID = onsiteCourse.getCourse().getCourseId();
+    	String Days = onsiteCourse.getDays();
+    	LocalTime Time = onsiteCourse.getTime();
+    	String Location = onsiteCourse.getLocation();
+    	int Department = onsiteCourse.getCourse().getDepartment().getDepartmentId();
+    	int Credit = onsiteCourse.getCourse().getCredits();
+    	int InstructorID = OnsiteCourseBLL.getInstructorID(CourseId);
+    	OnsiteCourseDetails custompanel = new OnsiteCourseDetails(Title, CourseID, Days, Time, Location, Department, Credit, InstructorID);
+    	String dialogTitle = "Onsite Course Details";
+        JDialogGUI customDialog = new JDialogGUI(this, custompanel, dialogTitle);
+        customDialog.showDialog();
+    }
 
 
 
